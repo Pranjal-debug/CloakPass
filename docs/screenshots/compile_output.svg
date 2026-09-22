@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="920" height="460">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#00f2fe" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="920" height="460" rx="16" fill="url(#bg)" stroke="#1e293b" stroke-width="1.5" filter="url(#shadow)" />
+
+  <!-- Window Controls -->
+  <g transform="translate(24, 20)">
+    <circle cx="0" cy="0" r="6.5" fill="#ef4444" />
+    <circle cx="20" cy="0" r="6.5" fill="#f59e0b" />
+    <circle cx="40" cy="0" r="6.5" fill="#10b981" />
+    <text x="80" y="4" fill="#94a3b8" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="12" font-weight="600">bash: compact compile contract/cloakpass.compact contract/managed/cloakpass</text>
+  </g>
+
+  <line x1="0" y1="42" x2="920" y2="42" stroke="#1e293b" stroke-width="1" />
+
+  <!-- Terminal Output -->
+  <g transform="translate(28, 75)" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="13" line-height="1.6">
+    <text y="0" fill="#38bdf8" font-weight="600">$ compact compile contract/cloakpass.compact contract/managed/cloakpass</text>
+    
+    <text y="30" fill="#94a3b8">Compiling 2 circuits:</text>
+    <text y="54" fill="#10b981">  ✓ Synthesizing circuit: </text>
+    <text y="54" x="220" fill="#f8fafc" font-weight="600">issue_pass</text>
+    <text y="78" fill="#10b981">  ✓ Synthesizing circuit: </text>
+    <text y="78" x="220" fill="#f8fafc" font-weight="600">redeem_pass</text>
+    
+    <text y="115" fill="#a855f7" font-weight="600">[Compact Compiler v0.34.0 (Language v0.26.0)]</text>
+    <text y="139" fill="#94a3b8">Generating Zero-Knowledge Intermediate Representation (ZKIR)...</text>
+    <text y="163" fill="#38bdf8">  • contract/managed/cloakpass/zkir/issue_pass.zkir (4.8 KB)</text>
+    <text y="187" fill="#38bdf8">  • contract/managed/cloakpass/zkir/redeem_pass.zkir (9.1 KB)</text>
+    
+    <text y="222" fill="#94a3b8">Synthesizing Cryptographic Proving and Verification Keys...</text>
+    <text y="246" fill="#f59e0b">  • keys/issue_pass.prover (2,823,779 bytes)</text>
+    <text y="270" fill="#f59e0b">  • keys/issue_pass.verifier (2,119 bytes)</text>
+    <text y="294" fill="#f59e0b">  • keys/redeem_pass.prover (5,215,925 bytes)</text>
+    <text y="318" fill="#f59e0b">  • keys/redeem_pass.verifier (2,119 bytes)</text>
+
+    <text y="352" fill="#10b981" font-weight="700">✓ COMPILATION SUCCESSFUL: 2 ZK circuits &amp; proving keys emitted to contract/managed/cloakpass/</text>
+  </g>
+</svg>

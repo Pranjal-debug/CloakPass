@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" width="920" height="480">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+    <filter id="shadow2" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#8b5cf6" flood-opacity="0.2" />
+    </filter>
+  </defs>
+
+  <rect width="920" height="480" rx="16" fill="url(#bg2)" stroke="#1e293b" stroke-width="1.5" filter="url(#shadow2)" />
+
+  <!-- Window Controls -->
+  <g transform="translate(24, 20)">
+    <circle cx="0" cy="0" r="6.5" fill="#ef4444" />
+    <circle cx="20" cy="0" r="6.5" fill="#f59e0b" />
+    <circle cx="40" cy="0" r="6.5" fill="#10b981" />
+    <text x="80" y="4" fill="#94a3b8" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="12" font-weight="600">bash: npm run deploy:preprod (Midnight Network)</text>
+  </g>
+
+  <line x1="0" y1="42" x2="920" y2="42" stroke="#1e293b" stroke-width="1" />
+
+  <!-- Terminal Output -->
+  <g transform="translate(28, 75)" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="13" line-height="1.6">
+    <text y="0" fill="#38bdf8" font-weight="600">$ npm run deploy:preprod</text>
+
+    <text y="28" fill="#64748b">================================================================</text>
+    <text y="48" fill="#a855f7" font-weight="700">      MIDNIGHT NETWORK DEPLOYMENT RUNNER - LEVEL 1 (NEW MOON)   </text>
+    <text y="68" fill="#64748b">================================================================</text>
+    
+    <text y="92" fill="#94a3b8">Target Network : <tspan fill="#38bdf8" font-weight="600">PREPROD</tspan></text>
+    <text y="112" fill="#94a3b8">Network ID     : <tspan fill="#f8fafc">preprod</tspan></text>
+    <text y="132" fill="#94a3b8">Indexer URL    : <tspan fill="#60a5fa">https://indexer.preprod.midnight.network/api/v4/graphql</tspan></text>
+    <text y="152" fill="#94a3b8">Node RPC URL   : <tspan fill="#60a5fa">https://rpc.preprod.midnight.network</tspan></text>
+    <text y="172" fill="#94a3b8">Contract Name  : <tspan fill="#f8fafc" font-weight="600">CloakPass</tspan></text>
+
+    <text y="200" fill="#10b981">[1/4] Preparing Zero-Knowledge Circuit Proving Keys... (4 keys loaded)</text>
+    <text y="220" fill="#10b981">[2/4] Verifying ZKIR Circuit Constraints... (issue_pass, redeem_pass)</text>
+    <text y="240" fill="#10b981">[3/4] Submitting Contract Initialization Transaction to PREPROD...</text>
+    <text y="260" fill="#94a3b8">      Tx Hash: <tspan fill="#fbbf24">0x81a1ce8e066031c7c1b127b543065ebd67b565193e266ba6db6fca1f221d8ed8</tspan></text>
+
+    <text y="288" fill="#10b981">[4/4] Finalizing Deployment on Ledger...</text>
+    <text y="308" fill="#64748b">----------------------------------------------------------------</text>
+    <text y="328" fill="#10b981" font-weight="700">SUCCESS! CONTRACT DEPLOYED TO MIDNIGHT PREPROD TESTNET</text>
+    <text y="348" fill="#64748b">----------------------------------------------------------------</text>
+    
+    <text y="372" fill="#f8fafc" font-weight="700">Contract Address : </text>
+    <text y="372" x="160" fill="#22d3ee" font-weight="700">0226e33190b09c77e79040789750b024c17d6a8afd0375eb2c76b1d60d42f6cae6</text>
+    
+    <text y="394" fill="#94a3b8">Block Height     : <tspan fill="#f8fafc">154737</tspan></text>
+    <text y="414" fill="#94a3b8">Explorer Link    : <tspan fill="#38bdf8">https://explorer.preprod.midnight.network/contract/0226e33190b09c77e79040789750b024c17d6a8afd0375eb2c76b1d60d42f6cae6</tspan></text>
+  </g>
+</svg>
