@@ -3,208 +3,200 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CloakPass | Privacy-First Zero-Knowledge Access on Midnight Network</title>
-  <meta name="description" content="CloakPass is a privacy-first decentralized access control and zero-knowledge credential verification dApp built on Midnight Network with Compact." />
+  <title>CloakPass — Privacy-First Zero-Knowledge Access on Midnight</title>
+  <meta name="description" content="CloakPass is a clean, privacy-first decentralized access control and zero-knowledge verification dApp built on Midnight Network with Compact." />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
 </head>
 <body>
-  <div class="bg-grid-overlay"></div>
+  <div class="bg-grid"></div>
 
-  <div class="app-container">
+  <div class="app-wrapper">
     <!-- Navbar -->
-    <header class="navbar">
-      <a href="#" class="brand">
-        <div class="brand-icon">🛡️</div>
+    <header class="header-nav">
+      <a href="#" class="brand-link">
+        <div class="brand-logo-box">CP</div>
         <div>
-          <span class="brand-title">CloakPass</span>
-          <span class="brand-badge">Midnight Preprod</span>
+          <span class="brand-name">CloakPass</span>
+          <span class="brand-tag">Preprod</span>
         </div>
       </a>
 
-      <div class="nav-actions">
-        <div class="network-pill" id="network-status-pill">
-          <span class="pulse-dot"></span>
-          <span>Preprod Testnet</span>
+      <div class="nav-right">
+        <div class="badge-network">
+          <span class="live-indicator"></span>
+          <span>Midnight Preprod</span>
         </div>
 
-        <div id="wallet-address-pill" class="network-pill" style="display: none; color: var(--primary);"></div>
+        <div id="wallet-address-pill" class="badge-network" style="display: none; color: var(--accent-lime);"></div>
 
-        <button type="button" class="btn btn-primary" id="wallet-connect-btn">
-          <span>⚡</span>
+        <button type="button" class="action-btn btn-white" id="wallet-connect-btn">
           <span id="wallet-status-text">Connect Lace Wallet</span>
         </button>
       </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-pill">
-        <span>🔒 Zero-Knowledge Cryptographic Access Protocol</span>
+    <section class="hero-section">
+      <div class="badge-pill-light">
+        <span>Zero-Knowledge Proof Protocol</span>
       </div>
-      <h1 class="hero-title">Prove Entitlement.<br>Conceal Your Identity.</h1>
-      <p class="hero-subtitle">
-        CloakPass executes client-side Compact zero-knowledge circuits to prove ticket validity and event admission without revealing who you are or what secret you hold.
+      <h1 class="hero-heading">Prove Entitlement.<br>Conceal Your Identity.</h1>
+      <p class="hero-desc">
+        CloakPass runs client-side zero-knowledge circuits on Midnight to verify ticket validity and event admission without revealing who you are or what secret you hold.
       </p>
     </section>
 
-    <!-- Protocol Stats Ribbon -->
-    <section class="stats-ribbon" aria-label="Protocol Statistics">
-      <div class="stat-card">
-        <div class="stat-label">Total Passes Issued</div>
-        <div class="stat-value" id="stat-issued">1</div>
-        <div class="stat-sub">Historic Merkle Leaves</div>
+    <!-- Bento Stats Ribbon -->
+    <section class="bento-stats" aria-label="Protocol Metrics">
+      <div class="bento-card">
+        <div class="bento-title">Passes Issued</div>
+        <div class="bento-number" id="stat-issued">2</div>
+        <div class="bento-sub">Historic Merkle Leaves</div>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-label">Passes Redeemed</div>
-        <div class="stat-value" id="stat-redeemed">0</div>
-        <div class="stat-sub">Disclosed Nullifiers</div>
+      <div class="bento-card">
+        <div class="bento-title">Passes Redeemed</div>
+        <div class="bento-number" id="stat-redeemed">1</div>
+        <div class="bento-sub">Disclosed Nullifiers</div>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-label">Commitment Tree Depth</div>
-        <div class="stat-value">10 Levels</div>
-        <div class="stat-sub"><span id="stat-commitments">1</span>/1,024 capacity</div>
+      <div class="bento-card">
+        <div class="bento-title">Tree Depth</div>
+        <div class="bento-number">10 Levels</div>
+        <div class="bento-sub"><span id="stat-commitments">2</span>/1,024 capacity</div>
       </div>
 
-      <div class="stat-card">
-        <div class="stat-label">Preprod Contract</div>
-        <div style="font-size: 14px; font-family: var(--font-mono); margin-top: 8px;">
-          <a href="#" id="stat-contract" target="_blank" style="color: var(--primary); text-decoration: none;">027f4783f4...ba5c0a2b</a>
+      <div class="bento-card">
+        <div class="bento-title">Preprod Contract</div>
+        <div style="font-size: 13px; font-family: var(--font-mono); margin-top: 10px;">
+          <a href="#" id="stat-contract" target="_blank" style="color: var(--accent-lime); text-decoration: none;">027f4783...ba5c0a2b</a>
         </div>
-        <div class="stat-sub">Compact v0.26.0 Ledger</div>
+        <div class="bento-sub">Compact v0.26.0 Ledger</div>
       </div>
     </section>
 
-    <!-- Main Navigation Tabs -->
-    <div class="tabs-header">
-      <button type="button" class="tab-btn active" id="tab-btn-issue">
-        <span>🎟️</span>
-        <span>Issue Pass</span>
-      </button>
-      <button type="button" class="tab-btn" id="tab-btn-redeem">
-        <span>🛡️</span>
-        <span>Zero-Knowledge Gate</span>
-      </button>
-      <button type="button" class="tab-btn" id="tab-btn-passes">
-        <span>🗂️</span>
-        <span>My Passes</span>
-      </button>
+    <!-- Floating Segmented Tab Switcher -->
+    <div class="tab-switcher-wrapper">
+      <div class="tab-switcher">
+        <button type="button" class="tab-item active" id="tab-btn-issue">
+          <span>Issue Pass</span>
+        </button>
+        <button type="button" class="tab-item" id="tab-btn-redeem">
+          <span>Zero-Knowledge Gate</span>
+        </button>
+        <button type="button" class="tab-item" id="tab-btn-passes">
+          <span>My Passes</span>
+        </button>
+      </div>
     </div>
 
     <!-- TAB 1: ISSUE PASS -->
-    <section class="tab-content active" id="tab-content-issue">
-      <div class="card-grid">
-        <div class="panel-card">
-          <h2 class="panel-title">
-            <span>⚡</span>
-            <span>Mint Confidential Pass</span>
-          </h2>
-          <p class="panel-desc">
-            Generate an unforgeable zero-knowledge pass. Your secret and blinding salt are generated locally in your browser. Only the cryptographic commitment hash is published to the Midnight ledger.
-          </p>
+    <section class="tab-panel active" id="tab-content-issue">
+      <div class="bento-layout">
+        <div class="box-card">
+          <div class="box-header">
+            <h2 class="box-title">Mint Confidential Pass</h2>
+            <p class="box-caption">
+              Generate an unforgeable zero-knowledge pass. Secret keys are created locally in your browser; only the commitment hash is broadcasted to the Midnight ledger.
+            </p>
+          </div>
 
           <form id="issue-form">
-            <div class="form-group">
-              <label class="form-label" for="pass-title">Pass Title / Event Name</label>
-              <input type="text" id="pass-title" class="form-input" placeholder="e.g. Midnight Global Summit 2026 VIP" required value="Midnight Builder Summit VIP Pass" />
+            <div class="field-group">
+              <label class="field-label" for="pass-title">Event Title or Entitlement Name</label>
+              <input type="text" id="pass-title" class="field-input" placeholder="e.g. Midnight Builder Summit VIP" required value="Midnight Builder Summit VIP Pass" />
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="pass-holder">Attendee Handle / Pseudonym</label>
-              <input type="text" id="pass-holder" class="form-input" placeholder="e.g. Satoshi" required value="ShadowCoder" />
+            <div class="field-group">
+              <label class="field-label" for="pass-holder">Attendee Pseudonym / Handle</label>
+              <input type="text" id="pass-holder" class="field-input" placeholder="e.g. Satoshi" required value="ShadowCoder" />
             </div>
 
             <div style="margin-top: 24px;">
-              <button type="submit" class="btn btn-primary btn-full" id="issue-submit-btn">
-                <span>⚡</span>
+              <button type="submit" class="action-btn btn-white btn-block" id="issue-submit-btn">
                 <span>Issue Pass into Merkle Tree</span>
               </button>
             </div>
           </form>
         </div>
 
-        <div class="panel-card">
-          <h2 class="panel-title">
-            <span>🎫</span>
-            <span>Pass Receipt &amp; Credentials</span>
-          </h2>
-          <p class="panel-desc">
-            Newly issued passes appear here with their off-chain private keys. Back up your secret to redeem later.
-          </p>
+        <div class="box-card">
+          <div class="box-header">
+            <h2 class="box-title">Receipt &amp; Secret Keys</h2>
+            <p class="box-caption">
+              Newly minted passes will appear here with private witness credentials.
+            </p>
+          </div>
 
           <div id="issue-result-box" style="display: none;"></div>
 
-          <div id="issue-placeholder-box" style="border: 2px dashed rgba(255, 255, 255, 0.1); border-radius: var(--radius-lg); padding: 50px 20px; text-align: center; color: var(--text-dim);">
-            <div style="font-size: 36px; margin-bottom: 10px;">✨</div>
-            <div>Fill in the form and click <strong>Issue Pass</strong> to generate a zero-knowledge credential.</div>
+          <div id="issue-placeholder-box" style="border: 1px dashed var(--border-subtle); border-radius: var(--radius-md); padding: 48px 24px; text-align: center; color: var(--text-dim);">
+            <div style="font-size: 28px; margin-bottom: 8px;">🎫</div>
+            <div style="font-size: 13px;">Submit the form to generate a privacy pass.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: ZERO-KNOWLEDGE GATE (REDEEM) -->
-    <section class="tab-content" id="tab-content-redeem">
-      <div class="card-grid">
-        <div class="panel-card">
-          <h2 class="panel-title">
-            <span>🛡️</span>
-            <span>Prove &amp; Redeem Pass</span>
-          </h2>
-          <p class="panel-desc">
-            Present your pass credentials to the gate. The Compact circuit verifies that your secret commitment exists in the Merkle tree, generates an unlinkable nullifier, and proves your right of admission without revealing your identity.
-          </p>
+    <!-- TAB 2: ZERO-KNOWLEDGE GATE -->
+    <section class="tab-panel" id="tab-content-redeem">
+      <div class="bento-layout">
+        <div class="box-card">
+          <div class="box-header">
+            <h2 class="box-title">Prove &amp; Redeem Pass</h2>
+            <p class="box-caption">
+              Present your credentials to the gate. The circuit validates Merkle membership, derives an unlinkable nullifier, and proves right-of-admission without revealing your identity.
+            </p>
+          </div>
 
           <div id="quick-select-passes" style="margin-bottom: 20px;"></div>
 
           <form id="redeem-form">
-            <div class="form-group">
-              <label class="form-label" for="redeem-secret">Private Ticket Secret (32 Bytes Hex)</label>
-              <input type="text" id="redeem-secret" class="form-input font-mono" placeholder="4f8a29b3c7e108d4a6523f9901bc3d2e..." required />
+            <div class="field-group">
+              <label class="field-label" for="redeem-secret">Private Ticket Secret (32 Bytes Hex)</label>
+              <input type="text" id="redeem-secret" class="field-input mono" placeholder="4f8a29b3c7e108d4a6523f9901bc3d2e..." required />
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="redeem-salt">Private Blinding Salt (32 Bytes Hex)</label>
-              <input type="text" id="redeem-salt" class="form-input font-mono" placeholder="a1b2c3d4e5f67890123456789abcdef0..." required />
+            <div class="field-group">
+              <label class="field-label" for="redeem-salt">Private Blinding Salt (32 Bytes Hex)</label>
+              <input type="text" id="redeem-salt" class="field-input mono" placeholder="a1b2c3d4e5f67890123456789abcdef0..." required />
             </div>
 
             <div style="margin-top: 24px;">
-              <button type="submit" class="btn btn-primary btn-full" id="redeem-submit-btn">
-                <span>🛡️</span>
+              <button type="submit" class="action-btn btn-white btn-block" id="redeem-submit-btn">
                 <span>Prove &amp; Redeem Pass</span>
               </button>
             </div>
           </form>
         </div>
 
-        <div class="panel-card">
-          <h2 class="panel-title">
-            <span>🔒</span>
-            <span>Zero-Knowledge Gate Verification Engine</span>
-          </h2>
-          <p class="panel-desc">
-            How Midnight protects your identity during redemption:
-          </p>
+        <div class="box-card">
+          <div class="box-header">
+            <h2 class="box-title">Zero-Knowledge Verification</h2>
+            <p class="box-caption">
+              Security guarantees verified on-chain by Compact:
+            </p>
+          </div>
 
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-sm); padding: 14px; border-left: 3px solid var(--primary);">
-              <strong style="color: #fff; font-size: 13px;">1. Merkle Membership Proof</strong>
-              <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-                Proves <code>checkRoot(merkleTreePathRoot(path)) == true</code> using private witness without disclosing which leaf index you hold.
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff;">1. Merkle Membership Proof</div>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                Validates that your pass commitment is a member of the historic Merkle tree without disclosing leaf index.
               </p>
             </div>
 
-            <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-sm); padding: 14px; border-left: 3px solid var(--secondary);">
-              <strong style="color: #fff; font-size: 13px;">2. Unlinkable Nullifier Derivation</strong>
-              <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-                Computes <code>SHA256("cloakpass:nullify:" || secret)</code>. This hash is mathematically independent from the commitment leaf.
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff;">2. Unlinkable Nullifier</div>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                Derives domain-tagged hash <code>SHA256("cloakpass:nullify:" || secret)</code>, mathematically unlinkable to the commitment.
               </p>
             </div>
 
-            <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-sm); padding: 14px; border-left: 3px solid var(--accent-emerald);">
-              <strong style="color: #fff; font-size: 13px;">3. Controlled Boundary via disclose()</strong>
-              <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-                Only the nullifier and the boolean assertion reach the on-chain ledger to prevent double-spending.
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff;">3. Controlled Disclosure</div>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                Only the nullifier and assertion boolean reach the public ledger via <code>disclose()</code> to prohibit double-use.
               </p>
             </div>
           </div>
@@ -213,54 +205,79 @@
     </section>
 
     <!-- TAB 3: MY PASSES -->
-    <section class="tab-content" id="tab-content-passes">
-      <div class="panel-card">
-        <h2 class="panel-title">
-          <span>🗂️</span>
-          <span>My Shielded Access Passes</span>
-        </h2>
-        <p class="panel-desc">
-          Your confidential passes stored securely in your client session.
-        </p>
+    <section class="tab-panel" id="tab-content-passes">
+      <div class="box-card">
+        <div class="box-header">
+          <h2 class="box-title">My Confidential Access Passes</h2>
+          <p class="box-caption">
+            All passes held in your client device session.
+          </p>
+        </div>
 
         <div id="all-passes-list"></div>
       </div>
     </section>
 
-    <!-- Architectural Privacy Inspector -->
-    <section class="inspector-card" aria-label="Privacy Boundary Visualizer">
-      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-        <h3 style="font-size: 16px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
-          <span>🔍</span>
-          <span>Midnight Dual-State Privacy Inspector</span>
-        </h3>
-        <span style="font-size: 12px; font-family: var(--font-mono); color: var(--text-dim);">Compact Static Disclosure Engine</span>
+    <!-- Clean Privacy Comparison Bento -->
+    <section class="privacy-bento" aria-label="Privacy Guarantees">
+      <div class="privacy-bento-header">
+        <div>
+          <h3 style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #fff;">
+            Midnight Dual-State Architecture
+          </h3>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 2px;">
+            Strict separation between client-side private witnesses and public ledger state
+          </p>
+        </div>
+        <span style="font-size: 11px; font-family: var(--font-mono); color: var(--accent-lime);">COMPACT v0.26.0</span>
       </div>
 
-      <div class="inspector-grid">
-        <div class="inspector-col private">
-          <div class="col-header" style="color: #c084fc;">
-            <span>🔒</span>
-            <span>Off-Chain Private Witnesses (Client Device)</span>
+      <div class="privacy-grid">
+        <div class="privacy-col">
+          <div class="privacy-col-title title-private">
+            <span>Off-Chain Witnesses (100% Private)</span>
           </div>
-          <ul class="col-list">
-            <li><strong>pass_secret()</strong>: 32-byte secret key never transmitted in plaintext.</li>
-            <li><strong>pass_salt()</strong>: Cryptographic blinding randomness preventing brute-force rainbow tables.</li>
-            <li><strong>get_pass_path()</strong>: Merkle sibling route; your leaf position remains shielded.</li>
-            <li><strong>User Identity</strong>: Lace wallet public key is not bound to the redeemed pass.</li>
+          <ul class="privacy-list">
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>pass_secret()</strong>: 32-byte secret credential; never broadcast to the network.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>pass_salt()</strong>: Cryptographic blinding factor preventing rainbow-table discovery.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>get_pass_path()</strong>: Merkle sibling route; your exact leaf position remains shielded.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>Lace Account</strong>: Prover wallet public address is never tied to the redeemed pass.</span>
+            </li>
           </ul>
         </div>
 
-        <div class="inspector-col disclosed">
-          <div class="col-header" style="color: var(--primary);">
-            <span>🌐</span>
-            <span>Public Ledger State (Midnight Preprod)</span>
+        <div class="privacy-col">
+          <div class="privacy-col-title title-public">
+            <span>Public Ledger State (Preprod On-Chain)</span>
           </div>
-          <ul class="col-list">
-            <li><strong>passCommitments</strong>: Historic Merkle tree digest verifying membership.</li>
-            <li><strong>usedNullifiers</strong>: Single-use nullifiers recorded to eliminate double-redemption.</li>
-            <li><strong>totalIssued &amp; totalRedeemed</strong>: Verifiable public macroeconomic counters.</li>
-            <li><strong>organizerPk</strong>: Authority public key sealing gate configuration.</li>
+          <ul class="privacy-list">
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>passCommitments</strong>: Historic Merkle tree root verifying valid pass membership.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>usedNullifiers</strong>: Single-use nullifiers published to prevent double-spending.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>totalIssued &amp; totalRedeemed</strong>: Verifiable public counter metrics.</span>
+            </li>
+            <li>
+              <span class="bullet-dot"></span>
+              <span><strong>organizerPk</strong>: Authority public key sealing gate configuration.</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -268,7 +285,7 @@
   </div>
 
   <!-- Toast Container -->
-  <div id="toast-container" class="toast-container"></div>
+  <div id="toast-container" class="toast-wrap"></div>
 
   <script type="module" src="./src/main.ts"></script>
 </body>

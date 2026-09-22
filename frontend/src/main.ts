@@ -18,6 +18,7 @@ const statContract = document.getElementById('stat-contract') as HTMLAnchorEleme
 const issueForm = document.getElementById('issue-form') as HTMLFormElement;
 const issueBtn = document.getElementById('issue-submit-btn') as HTMLButtonElement;
 const issueResultBox = document.getElementById('issue-result-box') as HTMLDivElement;
+const issuePlaceholder = document.getElementById('issue-placeholder-box') as HTMLDivElement;
 
 const redeemForm = document.getElementById('redeem-form') as HTMLFormElement;
 const redeemBtn = document.getElementById('redeem-submit-btn') as HTMLButtonElement;
@@ -32,16 +33,16 @@ const toastContainer = document.getElementById('toast-container') as HTMLDivElem
 // --- Helper Functions ---
 function showToast(message: string, type: 'success' | 'error' = 'success') {
   const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
+  toast.className = `toast-item ${type}`;
   toast.innerHTML = `
-    <span>${type === 'success' ? '🛡️' : '⚠️'}</span>
+    <span>${type === 'success' ? '✓' : '⚠️'}</span>
     <span>${message}</span>
   `;
   toastContainer.appendChild(toast);
   setTimeout(() => {
     toast.style.opacity = '0';
-    toast.style.transform = 'translateY(10px)';
-    setTimeout(() => toast.remove(), 300);
+    toast.style.transform = 'translateY(6px)';
+    setTimeout(() => toast.remove(), 250);
   }, 4000);
 }
 
@@ -61,46 +62,46 @@ function renderPassList() {
   if (!passesListContainer) return;
 
   if (passes.length === 0) {
-    passesListContainer.innerHTML = `<div style="text-align: center; color: var(--text-dim); padding: 40px 0;">No access passes issued yet. Mint your first pass above!</div>`;
+    passesListContainer.innerHTML = `<div style="text-align: center; color: var(--text-dim); padding: 48px 0; font-size: 14px;">No access passes issued yet. Mint your first pass above!</div>`;
     return;
   }
 
   passesListContainer.innerHTML = passes.map(pass => `
-    <div class="pass-ticket">
-      <div class="pass-header">
+    <div class="ticket-clean">
+      <div class="ticket-top">
         <div>
-          <span class="pass-id">${pass.id}</span>
-          <h3 class="pass-title">${pass.title}</h3>
-          <p class="pass-holder">Holder: ${pass.holderName}</p>
+          <span class="ticket-code">${pass.id}</span>
+          <h3 class="ticket-name">${pass.title}</h3>
+          <p class="ticket-holder">Holder: ${pass.holderName}</p>
         </div>
-        <span class="pass-status ${pass.isRedeemed ? 'status-redeemed' : 'status-active'}">
-          ${pass.isRedeemed ? 'Redeemed / Nullified' : 'Active / Valid'}
+        <span class="ticket-pill ${pass.isRedeemed ? 'pill-rose' : 'pill-green'}">
+          ${pass.isRedeemed ? 'Redeemed / Spent' : 'Active Pass'}
         </span>
       </div>
 
-      <div class="pass-details-box">
-        <div class="detail-row">
-          <span class="detail-label">Merkle Leaf (Commitment):</span>
-          <span class="detail-val" title="${pass.commitment}">0x${pass.commitment.slice(0, 16)}...</span>
+      <div class="ticket-data-grid">
+        <div class="data-item">
+          <span class="data-key">Merkle Leaf (Commitment):</span>
+          <span class="data-val">0x${pass.commitment.slice(0, 18)}...</span>
         </div>
-        <div class="detail-row">
-          <span class="detail-label">Private Secret (Witness):</span>
-          <span class="detail-val" style="color: var(--secondary);" title="Keep this private!">0x${pass.secret.slice(0, 16)}... (Protected)</span>
+        <div class="data-item">
+          <span class="data-key">Private Witness Secret:</span>
+          <span class="data-val" style="color: #c084fc;">0x${pass.secret.slice(0, 18)}... (Shielded)</span>
         </div>
-        <div class="detail-row">
-          <span class="detail-label">Issued Date:</span>
-          <span class="detail-val">${new Date(pass.issuedAt).toLocaleTimeString()}</span>
+        <div class="data-item">
+          <span class="data-key">Minted Timestamp:</span>
+          <span class="data-val">${new Date(pass.issuedAt).toLocaleTimeString()}</span>
         </div>
       </div>
 
       <div style="display: flex; gap: 10px;">
         ${!pass.isRedeemed ? `
-          <button class="btn btn-secondary btn-full auto-fill-btn" data-secret="${pass.secret}" data-salt="${pass.salt}">
-            ⚡ Verify at Gate
+          <button type="button" class="action-btn btn-ghost btn-block auto-fill-btn" data-secret="${pass.secret}" data-salt="${pass.salt}">
+            ⚡ Verify at Zero-Knowledge Gate
           </button>
         ` : `
-          <button class="btn btn-secondary btn-full" disabled style="opacity: 0.5;">
-            ✓ Used on Ledger
+          <button type="button" class="action-btn btn-ghost btn-block" disabled style="opacity: 0.5;">
+            ✓ Nullified on Ledger
           </button>
         `}
       </div>
@@ -116,7 +117,7 @@ function renderPassList() {
       switchTab('redeem');
       if (redeemSecretInput) redeemSecretInput.value = secret;
       if (redeemSaltInput) redeemSaltInput.value = salt;
-      showToast('Loaded pass credentials into Zero-Knowledge Gate!');
+      showToast('Loaded pass credentials into Gate!');
     });
   });
 }
@@ -131,10 +132,10 @@ function renderQuickSelect() {
   }
 
   quickSelectContainer.innerHTML = `
-    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Select from your unredeemed passes:</div>
+    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Select an active pass to load credentials:</div>
     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
       ${passes.map(p => `
-        <button type="button" class="btn btn-secondary quick-pass-pill" data-secret="${p.secret}" data-salt="${p.salt}" style="font-size: 12px; padding: 6px 12px;">
+        <button type="button" class="action-btn btn-ghost quick-pass-pill" data-secret="${p.secret}" data-salt="${p.salt}" style="font-size: 12px; padding: 6px 14px;">
           🎟️ ${p.id} (${p.holderName})
         </button>
       `).join('')}
@@ -152,8 +153,8 @@ function renderQuickSelect() {
 
 function switchTab(tab: 'issue' | 'redeem' | 'passes') {
   currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(c => c.classList.remove('active'));
 
   const activeBtn = document.getElementById(`tab-btn-${tab}`);
   const activeContent = document.getElementById(`tab-content-${tab}`);
@@ -171,8 +172,8 @@ async function handleWalletConnect() {
     activeAccount = null;
     walletStatusText.textContent = 'Connect Lace Wallet';
     walletAddressPill.style.display = 'none';
-    walletBtn.classList.remove('btn-secondary');
-    walletBtn.classList.add('btn-primary');
+    walletBtn.classList.remove('btn-ghost');
+    walletBtn.classList.add('btn-white');
     showToast('Wallet disconnected.');
     return;
   }
@@ -185,7 +186,6 @@ async function handleWalletConnect() {
       activeAccount = await laceConnector.connect('preprod');
       showToast(`Connected Lace wallet on Preprod!`);
     } else {
-      // Lace not detected: offer simulated Preprod wallet
       console.log('Lace extension not detected. Connecting simulated client...');
       activeAccount = await laceConnector.connectSimulation('preprod');
       showToast('Connected in Preprod Simulation Mode (Lace API v4)!');
@@ -193,9 +193,9 @@ async function handleWalletConnect() {
 
     walletStatusText.textContent = activeAccount.name;
     walletAddressPill.textContent = `${activeAccount.unshieldedAddress.slice(0, 10)}...${activeAccount.unshieldedAddress.slice(-6)}`;
-    walletAddressPill.style.display = 'inline-block';
-    walletBtn.classList.remove('btn-primary');
-    walletBtn.classList.add('btn-secondary');
+    walletAddressPill.style.display = 'inline-flex';
+    walletBtn.classList.remove('btn-white');
+    walletBtn.classList.add('btn-ghost');
   } catch (err: any) {
     showToast(err.message, 'error');
     walletStatusText.textContent = 'Connect Lace Wallet';
@@ -214,46 +214,47 @@ async function handleIssuePass(e: Event) {
   const holder = holderInput.value.trim() || 'Anonymous User';
 
   issueBtn.disabled = true;
-  issueBtn.innerHTML = `<span>⏳ Committing to Ledger...</span>`;
+  issueBtn.textContent = 'Committing to Ledger...';
 
   try {
     const newPass = await contractService.issuePass(title, holder);
     showToast(`Pass ${newPass.id} issued successfully on Midnight!`);
 
+    if (issuePlaceholder) issuePlaceholder.style.display = 'none';
     if (issueResultBox) {
       issueResultBox.style.display = 'block';
       issueResultBox.innerHTML = `
-        <div class="pass-ticket" style="margin-top: 20px; border-color: var(--primary);">
-          <div class="pass-header">
+        <div class="ticket-clean" style="border-color: rgba(140, 255, 46, 0.3);">
+          <div class="ticket-top">
             <div>
-              <span class="pass-id">${newPass.id}</span>
-              <h3 class="pass-title">${newPass.title}</h3>
-              <p class="pass-holder">Issued to: ${newPass.holderName}</p>
+              <span class="ticket-code">${newPass.id}</span>
+              <h3 class="ticket-name">${newPass.title}</h3>
+              <p class="ticket-holder">Issued to: ${newPass.holderName}</p>
             </div>
-            <span class="pass-status status-active">Active Leaf #${newPass.leafIndex}</span>
+            <span class="ticket-pill pill-green">Active Leaf #${newPass.leafIndex}</span>
           </div>
 
-          <div class="pass-details-box">
-            <div class="detail-row">
-              <span class="detail-label">Public Merkle Commitment:</span>
-              <span class="detail-val">0x${newPass.commitment.slice(0, 20)}...</span>
+          <div class="ticket-data-grid">
+            <div class="data-item">
+              <span class="data-key">Public Commitment:</span>
+              <span class="data-val">0x${newPass.commitment.slice(0, 18)}...</span>
             </div>
-            <div class="detail-row">
-              <span class="detail-label">Private Witness Secret:</span>
-              <span class="detail-val" style="color: var(--secondary);">0x${newPass.secret.slice(0, 20)}...</span>
+            <div class="data-item">
+              <span class="data-key">Private Secret (Witness):</span>
+              <span class="data-val" style="color: #c084fc;">0x${newPass.secret.slice(0, 18)}...</span>
             </div>
-            <div class="detail-row">
-              <span class="detail-label">Private Salt:</span>
-              <span class="detail-val" style="color: var(--secondary);">0x${newPass.salt.slice(0, 20)}...</span>
+            <div class="data-item">
+              <span class="data-key">Private Blinding Salt:</span>
+              <span class="data-val" style="color: #c084fc;">0x${newPass.salt.slice(0, 18)}...</span>
             </div>
           </div>
 
-          <div style="background: rgba(139, 92, 246, 0.1); border: 1px dashed var(--secondary); border-radius: var(--radius-sm); padding: 12px; font-size: 12px; margin-bottom: 12px;">
-            🔒 <strong>Privacy Assurance:</strong> Your <code>secret</code> and <code>salt</code> are kept 100% off-chain on your device. Only the commitment hash was written to the Midnight public ledger!
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: var(--radius-xs); padding: 12px; font-size: 12px; color: var(--text-secondary); margin-bottom: 14px;">
+            🔒 <strong>Privacy Assurance:</strong> Secret and salt remain on your device. Only the cryptographic commitment hash is broadcasted to the Midnight ledger.
           </div>
 
-          <button class="btn btn-primary btn-full auto-fill-btn" data-secret="${newPass.secret}" data-salt="${newPass.salt}">
-            ⚡ Verify &amp; Redeem at Zero-Knowledge Gate
+          <button type="button" class="action-btn btn-white btn-block auto-fill-btn" data-secret="${newPass.secret}" data-salt="${newPass.salt}">
+            ⚡ Verify at Zero-Knowledge Gate
           </button>
         </div>
       `;
@@ -273,7 +274,7 @@ async function handleIssuePass(e: Event) {
     showToast(err.message, 'error');
   } finally {
     issueBtn.disabled = false;
-    issueBtn.innerHTML = `<span>⚡ Issue Pass into Merkle Tree</span>`;
+    issueBtn.textContent = 'Issue Pass into Merkle Tree';
   }
 }
 
@@ -289,7 +290,7 @@ async function handleRedeemPass(e: Event) {
   }
 
   redeemBtn.disabled = true;
-  redeemBtn.innerHTML = `<span>🔒 Synthesizing ZK Proof &amp; Checking Root...</span>`;
+  redeemBtn.textContent = 'Proving & Verifying ZK Constraints...';
 
   try {
     const receipt: RedemptionReceipt = await contractService.redeemPass(secret, salt);
@@ -297,39 +298,39 @@ async function handleRedeemPass(e: Event) {
 
     // Show modal or receipt
     const modal = document.createElement('div');
-    modal.className = 'modal-overlay';
+    modal.className = 'modal-backdrop';
     modal.innerHTML = `
-      <div class="modal-content">
-        <div style="text-align: center; margin-bottom: 20px;">
-          <div style="font-size: 48px; margin-bottom: 8px;">🛡️</div>
-          <h2 style="font-size: 22px; font-weight: 800; color: #fff;">Access Granted! (ZK Verified)</h2>
-          <p style="font-size: 13px; color: var(--text-muted);">Midnight Zero-Knowledge Circuit Executed Successfully</p>
+      <div class="modal-box">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(140, 255, 46, 0.1); border: 1px solid var(--accent-lime); color: var(--accent-lime); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 20px;">✓</div>
+          <h2 style="font-family: var(--font-display); font-size: 22px; font-weight: 700; color: #fff;">Access Granted</h2>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Zero-Knowledge Circuit Proved Membership On-Chain</p>
         </div>
 
-        <div class="pass-details-box" style="margin-bottom: 20px;">
-          <div class="detail-row">
-            <span class="detail-label">Disclosed Nullifier:</span>
-            <span class="detail-val" style="color: var(--primary);">${receipt.nullifier.slice(0, 18)}...</span>
+        <div class="ticket-data-grid" style="margin-bottom: 20px;">
+          <div class="data-item">
+            <span class="data-key">Disclosed Nullifier:</span>
+            <span class="data-val" style="color: var(--accent-lime);">${receipt.nullifier.slice(0, 18)}...</span>
           </div>
-          <div class="detail-row">
-            <span class="detail-label">Preprod Block Height:</span>
-            <span class="detail-val">#${receipt.blockHeight}</span>
+          <div class="data-item">
+            <span class="data-key">Block Height:</span>
+            <span class="data-val">#${receipt.blockHeight}</span>
           </div>
-          <div class="detail-row">
-            <span class="detail-label">Proof Synthesis Time:</span>
-            <span class="detail-val">${receipt.proofTimeMs} ms</span>
+          <div class="data-item">
+            <span class="data-key">ZK Prover Execution:</span>
+            <span class="data-val">${receipt.proofTimeMs} ms</span>
           </div>
-          <div class="detail-row">
-            <span class="detail-label">Transaction Hash:</span>
-            <span class="detail-val">${receipt.txHash.slice(0, 18)}...</span>
+          <div class="data-item">
+            <span class="data-key">Transaction Hash:</span>
+            <span class="data-val">${receipt.txHash.slice(0, 18)}...</span>
           </div>
         </div>
 
-        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--accent-emerald); border-radius: var(--radius-sm); padding: 12px; font-size: 12px; margin-bottom: 20px;">
-          ✓ <strong>Soundness &amp; Privacy:</strong> The nullifier was revealed to prevent double-admission, while your secret identity remained 100% confidential.
+        <div style="background: rgba(140, 255, 46, 0.05); border: 1px solid rgba(140, 255, 46, 0.2); border-radius: var(--radius-xs); padding: 12px; font-size: 12px; color: var(--text-secondary); margin-bottom: 24px;">
+          ✓ <strong>Privacy Preserved:</strong> The nullifier prevents double-redemption while your secret identity remained 100% confidential.
         </div>
 
-        <button class="btn btn-primary btn-full modal-close-btn">
+        <button type="button" class="action-btn btn-white btn-block modal-close-btn">
           Done
         </button>
       </div>
@@ -346,7 +347,7 @@ async function handleRedeemPass(e: Event) {
     showToast(err.message, 'error');
   } finally {
     redeemBtn.disabled = false;
-    redeemBtn.innerHTML = `<span>🛡️ Prove &amp; Redeem Pass</span>`;
+    redeemBtn.textContent = 'Prove & Redeem Pass';
   }
 }
 
@@ -363,7 +364,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateStatsUI();
   renderQuickSelect();
 
-  // Check if wallet already present
   if (laceConnector.isInstalled()) {
     console.log('[CloakPass] Lace extension detected!');
   }
