@@ -1,0 +1,48 @@
+{
+  "name": "cloakpass",
+  "version": "0.1.0",
+  "description": "CloakPass - Privacy-First Zero-Knowledge Access Pass & Credential Verification dApp on Midnight",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "compile": "node scripts/compile-compact.mjs",
+    "compile:skip-zk": "node scripts/compile-compact.mjs --skip-zk",
+    "test": "node scripts/test-runner.mjs",
+    "test:local": "MIDNIGHT_NETWORK=local node scripts/test-runner.mjs",
+    "test:preview": "MIDNIGHT_NETWORK=preview node scripts/test-runner.mjs",
+    "test:preprod": "MIDNIGHT_NETWORK=preprod node scripts/test-runner.mjs",
+    "deploy:preprod": "node scripts/deploy.mjs preprod",
+    "deploy:preview": "node scripts/deploy.mjs preview",
+    "deploy:local": "node scripts/deploy.mjs local",
+    "env:up": "docker compose up -d --wait",
+    "env:down": "docker compose down",
+    "proof:up": "docker compose up -d --wait proof-server",
+    "proof:down": "docker compose stop proof-server"
+  },
+  "dependencies": {
+    "@midnight-ntwrk/compact-runtime": "^0.19.0",
+    "@midnight-ntwrk/midnight-js-contracts": "4.1.1",
+    "@midnight-ntwrk/midnight-js-http-client-proof-provider": "4.1.1",
+    "@midnight-ntwrk/midnight-js-indexer-public-data-provider": "4.1.1",
+    "@midnight-ntwrk/midnight-js-level-private-state-provider": "4.1.1",
+    "@midnight-ntwrk/midnight-js-network-id": "4.1.1",
+    "@midnight-ntwrk/midnight-js-node-zk-config-provider": "4.1.1",
+    "@midnight-ntwrk/midnight-js-protocol": "4.1.1",
+    "@midnight-ntwrk/midnight-js-types": "4.1.1",
+    "@midnight-ntwrk/midnight-js-utils": "4.1.1",
+    "@midnight-ntwrk/testkit-js": "4.1.1",
+    "@midnightntwrk/wallet-sdk": "1.2.0",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "rxjs": "^7.8.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/ws": "^8.5.14",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}
