@@ -1,11 +1,11 @@
 {
   "contractName": "CloakPass",
   "network": "preprod",
-  "contractAddress": "0226e33190b09c77e79040789750b024c17d6a8afd0375eb2c76b1d60d42f6cae6",
-  "txHash": "0x81a1ce8e066031c7c1b127b543065ebd67b565193e266ba6db6fca1f221d8ed8",
-  "blockHeight": 154737,
-  "deployedAt": "2026-09-22T15:07:35.028Z",
-  "organizerPk": "0xeb8917d80bf1eb4f7600358a51cb2e9ed9b2994293637b3c4a9eac0b399b88cd",
+  "contractAddress": "027f4783f43e98f143856aee0a308b95a6471bda6892012d5b84933be7ba5c0a2b",
+  "txHash": "0xeaca9928bfbe8411ef6e88ac32c90833b463ff9b5e7812ac1049110dd91ebdf3",
+  "blockHeight": 163604,
+  "deployedAt": "2026-09-22T15:09:44.976Z",
+  "organizerPk": "0xf3f1a62eb04abaff1fec3c8a829ebc94aa770674f421f55e811fb0e37122b927",
   "circuits": [
     "issue_pass",
     "redeem_pass"
