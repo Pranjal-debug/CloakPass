@@ -1,0 +1,103 @@
+pragma language_version >= 0.26.0;
+
+import CompactStandardLibrary;
+
+// ============================================================================
+// CloakPass: Privacy-Preserving Access Control & Zero-Knowledge Verification
+// ============================================================================
+//
+// Architectural Model:
+// 1. PUBLIC LEDGER STATE:
+//    - passCommitments: Merkle tree storing all issued pass commitments (Bytes<32>).
+//    - usedNullifiers: Set of revealed nullifiers, preventing double-redemption.
+//    - totalIssued: Public counter tracking total passes minted.
+//    - totalRedeemed: Public counter tracking total passes redeemed.
+//    - organizerPk: Public key of the organizing authority who deployed the gate.
+//
+// 2. PRIVATE WITNESSES:
+//    - pass_secret(): Secret credential held only by the user.
+//    - pass_salt(): Random blinding factor ensuring commitment confidentiality.
+//    - get_pass_path(): Off-chain Merkle membership proof (leaf index & siblings).
+//
+// 3. DELIBERATE USE OF disclose():
+//    - The user proves membership and eligibility inside the ZK circuit.
+//    - Only the un-linkable nullifier and Merkle root verification are disclosed.
+//    - Secret keys and Merkle leaf positions remain 100% private to the user.
+// ============================================================================
+
+export ledger passCommitments: HistoricMerkleTree<10, Bytes<32>>;
+export ledger usedNullifiers: Set<Bytes<32>>;
+export ledger totalIssued: Counter;
+export ledger totalRedeemed: Counter;
+export sealed ledger organizerPk: Bytes<32>;
+
+// --- Private Witnesses (off-chain client evaluation) ---
+witness pass_secret(): Bytes<32>;
+witness pass_salt(): Bytes<32>;
+witness get_pass_path(commitment: Bytes<32>): MerkleTreePath<10, Bytes<32>>;
+
+// --- Cryptographic Circuit Helpers ---
+circuit derive_pass_commitment(secret: Bytes<32>, salt: Bytes<32>): Bytes<32> {
+  return persistentCommit<Vector<2, Bytes<32>>>(
+    [pad(32, "cloakpass:commit:"), secret],
+    salt
+  );
+}
+
+circuit derive_pass_nullifier(secret: Bytes<32>): Bytes<32> {
+  return persistentHash<Vector<2, Bytes<32>>>([
+    pad(32, "cloakpass:nullify:"),
+    secret
+  ]);
+}
+
+// --- Constructor ---
+constructor(organizer: Bytes<32>) {
+  organizerPk = disclose(organizer);
+}
+
+// --- Exported Circuits ---
+
+// Issue a new access pass into the Merkle tree.
+// The commitment is recorded publicly, but the underlying secret remains hidden.
+export circuit issue_pass(): [] {
+  const secret = pass_secret();
+  const salt = pass_salt();
+  const commitment = derive_pass_commitment(secret, salt);
+  
+  passCommitments.insert(commitment);
+  totalIssued.increment(1);
+}
+
+// Redeem an access pass privately.
+// Proves in ZK that:
+// 1. The user knows a valid secret whose commitment exists in the Merkle tree.
+// 2. The derived nullifier has not been used yet.
+// 3. Deliberately discloses the nullifier to prevent double-spending without revealing the ticket leaf.
+export circuit redeem_pass(): [] {
+  const secret = pass_secret();
+  const salt = pass_salt();
+  const commitment = derive_pass_commitment(secret, salt);
+
+  // Retrieve Merkle proof from private witness
+  const path = get_pass_path(commitment);
+
+  // Soundness constraint: ensure proof matches this commitment
+  assert(path.leaf == commitment, "Merkle path does not match ticket commitment");
+
+  // Verify the commitment belongs to the valid historic Merkle tree
+  assert(
+    passCommitments.checkRoot(disclose(merkleTreePathRoot<10, Bytes<32>>(path))),
+    "Invalid pass: not in valid commitment tree"
+  );
+
+  // Derive the unlinkable nullifier
+  const nullifier = derive_pass_nullifier(secret);
+
+  // Ensure pass has not been redeemed before (double-redemption protection)
+  assert(disclose(!usedNullifiers.member(disclose(nullifier))), "Pass has already been redeemed");
+
+  // Deliberately record the nullifier in public state
+  usedNullifiers.insert(disclose(nullifier));
+  totalRedeemed.increment(1);
+}
