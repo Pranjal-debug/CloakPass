@@ -1,0 +1,78 @@
+{
+  "manifest-version": "1",
+  "compiler-version": "0.34.0",
+  "language-version": "0.26.0",
+  "runtime-version": "0.19.0",
+  "compiler": {
+    "type": "directory",
+    "contract-info.json": {
+      "type": "file",
+      "size": 3204,
+      "hash": "86b3019ec28c331ae0a62395ced879787217a2df25af5dd23b7fbaf3314a2a91"
+    }
+  },
+  "contract": {
+    "type": "directory",
+    "index.d.ts": {
+      "type": "file",
+      "size": 3007,
+      "hash": "448f041d73be91a2c7b0c2d37548685c1a16b3787b678816b59461e00e10c9a8"
+    },
+    "index.js": {
+      "type": "file",
+      "size": 59104,
+      "hash": "1a096f4578cf72b94a800f427784e02a186a1cf2789b3846625f15590138b14a"
+    },
+    "index.js.map": {
+      "type": "file",
+      "size": 2199,
+      "hash": "b37d1ebe12996f7b44776c91e20f4d642053fd7c0951c74313730c8b437d583a"
+    }
+  },
+  "zkir": {
+    "type": "directory",
+    "issue_pass.bzkir": {
+      "type": "file",
+      "size": 309,
+      "hash": "a5e6b964793ab70993fa84f605257143f6932bd55468d204e01c931c05e432d6"
+    },
+    "issue_pass.zkir": {
+      "type": "file",
+      "size": 4816,
+      "hash": "3581766f50fb0aff0af92bba56b4bf0b2fbe451b05204a8f639dfb823abe1063"
+    },
+    "redeem_pass.bzkir": {
+      "type": "file",
+      "size": 639,
+      "hash": "73dae82e171112abc0ad7bb5d630477f4a0b4d636c9244991ee0ebed85571537"
+    },
+    "redeem_pass.zkir": {
+      "type": "file",
+      "size": 9167,
+      "hash": "70699d32de0f0f9caf81ffdc575862f01b6eed0333910c9589839a8a7541b9b9"
+    }
+  },
+  "keys": {
+    "type": "directory",
+    "issue_pass.prover": {
+      "type": "file",
+      "size": 2823779,
+      "hash": "e7e9d9a461ed32eb6e612c8e23ed52fbfc355dd1ac62d25e95bb0e0987621507"
+    },
+    "issue_pass.verifier": {
+      "type": "file",
+      "size": 2119,
+      "hash": "6ea4f96c5591d8816371603827d85d4df0854100ceafc2f35c352f14a3abab6d"
+    },
+    "redeem_pass.prover": {
+      "type": "file",
+      "size": 5215925,
+      "hash": "b9458e4ee33749a62ad4ab4ba8efc420683f658fa560ea72fe5af21c7908fe77"
+    },
+    "redeem_pass.verifier": {
+      "type": "file",
+      "size": 2119,
+      "hash": "c220d544766da869ce782da7a7c7e18735d13bf1f1a989fffdb740670a3ebc51"
+    }
+  }
+}
