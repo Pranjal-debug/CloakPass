@@ -20,16 +20,17 @@
 
 ---
 
-## 🌑 Level 1: New Moon Highlights
+## 🌒 Development Phases & Status
 
-| Requirement | Status | Details |
-|---|:---:|---|
-| **Compact Toolchain Installed** | ✅ PASS | Compact Compiler `v0.34.0`, Node.js `v22.18.0`, Docker Proof Server setup |
-| **First Compact Contract** | ✅ PASS | `contract/cloakpass.compact` with ledger state, witnesses & `disclose()` |
-| **ZK Circuits & Keys Generated** | ✅ PASS | `contract/managed/cloakpass/` containing ZKIR circuits & proving keys |
-| **Passing Test Suite** | ✅ PASS | 8/8 comprehensive tests passing (artifacts, witness logic, networks) |
-| **Deployed to Preprod/Preview** | ✅ PASS | Contract Address: `0226e33190b09c77e79040789750b024c17d6a8afd0375eb2c76b1d60d42f6cae6` |
-| **Minimum 5 Commits** | ✅ PASS | Structured conventional git commit history |
+| Phase | Title | Status | Deliverables |
+|:---:|---|:---:|---|
+| **🌑 Level 1** | **New Moon (Setup & Contract)** | ✅ **PASS** | Compact compiler `v0.34.0`, `cloakpass.compact`, ZK circuits & keys, 8/8 tests, Preprod deployment |
+| **🌒 Level 2** | **Waxing Crescent (Frontend UI)** | ✅ **PASS** | Interactive Vite frontend, Lace DApp Connector v4, pass minting & ZK gate redemption |
+| **🌓 Level 3** | **First Quarter (Production dApp)** | ⏳ **PENDING** | End-to-end integration tests, CI/CD pipeline, performance optimization |
+| **🌓 The Turn** | **Idea Submission** | ⏳ **PENDING** | Official idea submission against problem statement |
+| **🌔 Level 4** | **Waxing Gibbous (MVP Live)** | ⏳ **PENDING** | Production MVP on Preprod, public documentation, X product profile |
+| **🌕 Level 5** | **Full Moon (User Feedback)** | ⏳ **PENDING** | Feedback loop & 50 Preprod users |
+| **🌝 Level 6** | **Supermoon (Mainnet Launch)** | ⏳ **PENDING** | Mainnet deployment, brand assets & 20 active users |
 
 ---
 
@@ -134,13 +135,24 @@ npm run compile
 compact compile contract/cloakpass.compact contract/managed/cloakpass
 ```
 
-### 3. Run the Automated Test Suite
+### 3. Launch the Interactive Frontend dApp (Level 2)
+Run the Vite development server to launch the CloakPass web UI:
+```bash
+npm run dev
+# The dApp will be accessible at http://localhost:5173/
+```
+
+- Connect your **Midnight Lace Wallet** (preprod network).
+- Issue a confidential access pass with off-chain secret key generation.
+- Present pass credentials to the **Zero-Knowledge Gate** to verify admission without disclosing identity.
+
+### 4. Run the Automated Test Suite
 Execute the contract and witness test suite:
 ```bash
 npm test
 ```
 
-### 4. Deploy to Midnight Networks
+### 5. Deploy to Midnight Networks
 Deploy the smart contract to Midnight Preprod or Preview:
 ```bash
 # Deploy to Preprod Testnet

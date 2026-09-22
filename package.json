@@ -7,9 +7,13 @@
     "node": ">=22.0.0"
   },
   "scripts": {
+    "dev": "vite frontend",
+    "build:frontend": "vite build frontend",
+    "preview:frontend": "vite preview frontend",
     "compile": "node scripts/compile-compact.mjs",
     "compile:skip-zk": "node scripts/compile-compact.mjs --skip-zk",
     "test": "node scripts/test-runner.mjs",
+    "test:vitest": "vitest run",
     "test:local": "MIDNIGHT_NETWORK=local node scripts/test-runner.mjs",
     "test:preview": "MIDNIGHT_NETWORK=preview node scripts/test-runner.mjs",
     "test:preprod": "MIDNIGHT_NETWORK=preprod node scripts/test-runner.mjs",
@@ -40,9 +44,9 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "@types/node": "^22.13.0",
+    "@types/node": "^22.20.4",
     "@types/ws": "^8.5.14",
     "typescript": "^5.7.3",
-    "vitest": "^3.0.5"
+    "vitest": "^3.2.7"
   }
 }
