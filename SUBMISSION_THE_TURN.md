@@ -4,7 +4,7 @@
 **Project Name**: CloakPass  
 **Track**: Privacy-Preserving Applications on Midnight  
 **Selected Problem Statement**: *Privacy-Preserving Access Control & Sybil-Resistant Verification (Proof of Entitlement Without Identity Exposure)*  
-**Live Preprod Contract**: `027f4783f43e98f143856aee0a308b95a6471bda6892012d5b84933be7ba5c0a2b`  
+**Live Preprod Contract**: `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`  
 **GitHub Repository**: [https://github.com/Pranjal-debug/CloakPass](https://github.com/Pranjal-debug/CloakPass)
 
 ---
@@ -116,7 +116,7 @@ gantt
     Mainnet Deployment, Production Auditing, Ecosystem Launch :l6, 2026-10-03, 2026-10-08
 ```
 
-- **Level 1 (New Moon) [COMPLETED]**: Compact contract written, compiled ZKIR & proving keys (`issue_pass.prover`, `redeem_pass.prover`), deployed to Midnight Preprod (`027f4783f...`).
+- **Level 1 (New Moon) [COMPLETED]**: Compact contract written, compiled ZKIR & proving keys (`issue_pass.prover`, `redeem_pass.prover`), deployed to Midnight Preprod (`02df1c9fa...`).
 - **Level 2 (Waxing Crescent) [COMPLETED]**: Full frontend with Midnight DApp Connector v4 & Lace wallet integration, Nouva-inspired aesthetics, local witness proving.
 - **Level 3 (First Quarter & The Turn) [CURRENT]**: Multi-step GitHub Actions CI/CD, 15 unit and integration tests, JSON credential export/import backup, official idea submission.
 - **Level 4 (Waxing Gibbous)**: Public hosted MVP, end-to-end user onboarding with faucet guidance, public product profile.

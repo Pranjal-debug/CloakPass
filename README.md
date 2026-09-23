@@ -100,10 +100,11 @@ Compiling 2 circuits:
 ### 2. Successful Deployment to Preprod Testnet (Address Shown)
 ```
 $ npm run deploy:preprod
-Contract Address : 0226e33190b09c77e79040789750b024c17d6a8afd0375eb2c76b1d60d42f6cae6
+Contract Address : 02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9
 Network          : PREPROD
-Transaction Hash : 0x81a1ce8e066031c7c1b127b543065ebd67b565193e266ba6db6fca1f221d8ed8
-Block Height     : 154737
+Transaction Hash : 0x6a941d4234b137099536310b758d8baaff247aaa42912145a890836eb448884d
+Block Height     : 2677990
+Explorer Link    : https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9
 ```
 
 <p align="center">

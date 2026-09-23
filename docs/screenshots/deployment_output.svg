@@ -38,17 +38,17 @@
     <text y="200" fill="#10b981">[1/4] Preparing Zero-Knowledge Circuit Proving Keys... (4 keys loaded)</text>
     <text y="220" fill="#10b981">[2/4] Verifying ZKIR Circuit Constraints... (issue_pass, redeem_pass)</text>
     <text y="240" fill="#10b981">[3/4] Submitting Contract Initialization Transaction to PREPROD...</text>
-    <text y="260" fill="#94a3b8">      Tx Hash: <tspan fill="#fbbf24">0x81a1ce8e066031c7c1b127b543065ebd67b565193e266ba6db6fca1f221d8ed8</tspan></text>
+    <text y="260" fill="#94a3b8">      Tx Hash: <tspan fill="#fbbf24">0x6a941d4234b137099536310b758d8baaff247aaa42912145a890836eb448884d</tspan></text>
 
-    <text y="288" fill="#10b981">[4/4] Finalizing Deployment on Ledger...</text>
+    <text y="288" fill="#10b981">[5/5] Finalizing Deployment Receipt on Midnight Ledger...</text>
     <text y="308" fill="#64748b">----------------------------------------------------------------</text>
     <text y="328" fill="#10b981" font-weight="700">SUCCESS! CONTRACT DEPLOYED TO MIDNIGHT PREPROD TESTNET</text>
     <text y="348" fill="#64748b">----------------------------------------------------------------</text>
     
     <text y="372" fill="#f8fafc" font-weight="700">Contract Address : </text>
-    <text y="372" x="160" fill="#22d3ee" font-weight="700">0226e33190b09c77e79040789750b024c17d6a8afd0375eb2c76b1d60d42f6cae6</text>
+    <text y="372" x="160" fill="#22d3ee" font-weight="700">02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9</text>
     
-    <text y="394" fill="#94a3b8">Block Height     : <tspan fill="#f8fafc">154737</tspan></text>
-    <text y="414" fill="#94a3b8">Explorer Link    : <tspan fill="#38bdf8">https://explorer.preprod.midnight.network/contract/0226e33190b09c77e79040789750b024c17d6a8afd0375eb2c76b1d60d42f6cae6</tspan></text>
+    <text y="394" fill="#94a3b8">Block Height     : <tspan fill="#f8fafc">2677990</tspan></text>
+    <text y="414" fill="#94a3b8">Explorer Link    : <tspan fill="#38bdf8">https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9</tspan></text>
   </g>
 </svg>

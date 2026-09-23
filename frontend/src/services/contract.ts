@@ -38,11 +38,11 @@ export interface RedemptionReceipt {
 }
 
 export class CloakPassContractService {
-  public readonly contractAddress = '027f4783f43e98f143856aee0a308b95a6471bda6892012d5b84933be7ba5c0a2b';
+  public readonly contractAddress = '02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9';
   public readonly network = 'preprod';
   public readonly indexerUrl = 'https://indexer.preprod.midnight.network/api/v4/graphql';
   public readonly nodeRpcUrl = 'https://rpc.preprod.midnight.network';
-  public readonly explorerUrl = `https://explorer.preprod.midnight.network/contract/027f4783f43e98f143856aee0a308b95a6471bda6892012d5b84933be7ba5c0a2b`;
+  public readonly explorerUrl = `https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`;
 
   private commitments: string[] = [];
   private usedNullifiers: Set<string> = new Set();

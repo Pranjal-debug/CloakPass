@@ -1,13 +1,15 @@
 {
   "contractName": "CloakPass",
   "network": "preprod",
-  "contractAddress": "027f4783f43e98f143856aee0a308b95a6471bda6892012d5b84933be7ba5c0a2b",
-  "txHash": "0xeaca9928bfbe8411ef6e88ac32c90833b463ff9b5e7812ac1049110dd91ebdf3",
-  "blockHeight": 163604,
-  "deployedAt": "2026-09-22T15:09:44.976Z",
-  "organizerPk": "0xf3f1a62eb04abaff1fec3c8a829ebc94aa770674f421f55e811fb0e37122b927",
+  "contractAddress": "02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9",
+  "txHash": "0x6a941d4234b137099536310b758d8baaff247aaa42912145a890836eb448884d",
+  "blockHeight": 2677990,
+  "blockHash": "0x06f32311d330f039e619c5b8aec8c10e489a17e8763553817c62a076276d953d",
+  "deployedAt": "2026-09-23T17:47:03.040Z",
+  "organizerPk": "0xbf3e10740a37ac15636d4ca6379a84953b97dc9865e567183481d893ca47e939",
   "circuits": [
     "issue_pass",
     "redeem_pass"
-  ]
+  ],
+  "explorerUrl": "https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9"
 }

@@ -1,0 +1,15 @@
+{
+  "contractName": "CloakPass",
+  "network": "preview",
+  "contractAddress": "02ee74b6ff5c9eb625550f6446fb1603b7122f1e922cf398eab0f1dba16c295fb1",
+  "txHash": "0x92774d25b80f7c5d5560a3adb6ceddf6c61e6a9065c65b99309e417ffe3bc885",
+  "blockHeight": 994590,
+  "blockHash": "0xd491de207109aba8c231502b22178966400e4eb0ce32050cf1eb3f8fdcf1ea5a",
+  "deployedAt": "2026-09-23T17:49:39.263Z",
+  "organizerPk": "0x00da1e371e04b0465b0e7d46c49552dcc5cefdd20c872e79a898edcbdf1a5ebd",
+  "circuits": [
+    "issue_pass",
+    "redeem_pass"
+  ],
+  "explorerUrl": "https://explorer.preview.midnight.network/contract/02ee74b6ff5c9eb625550f6446fb1603b7122f1e922cf398eab0f1dba16c295fb1"
+}
