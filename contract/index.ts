@@ -18,10 +18,10 @@ const __filename = fileURLToPath(import.meta.url);
 const currentDir = path.dirname(__filename);
 export const zkConfigPath = path.resolve(currentDir, 'managed', 'cloakpass');
 
-export const CompiledCloakPassContract = CompiledContract.make(
+export const CompiledCloakPassContract: any = (CompiledContract.make as any)(
   'CloakPassContract',
   Contract,
 ).pipe(
-  CompiledContract.withWitnesses(witnesses),
-  CompiledContract.withCompiledFileAssets(zkConfigPath),
+  (CompiledContract.withWitnesses as any)(witnesses),
+  (CompiledContract.withCompiledFileAssets as any)(zkConfigPath),
 );

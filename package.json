@@ -12,6 +12,7 @@
     "preview:frontend": "vite preview frontend",
     "compile": "node scripts/compile-compact.mjs",
     "compile:skip-zk": "node scripts/compile-compact.mjs --skip-zk",
+    "typecheck": "tsc --noEmit",
     "test": "node scripts/test-runner.mjs",
     "test:vitest": "vitest run",
     "test:local": "MIDNIGHT_NETWORK=local node scripts/test-runner.mjs",

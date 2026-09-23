@@ -1,0 +1,52 @@
+name: CloakPass CI/CD
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test-and-build:
+    name: Build, Typecheck & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      - name: Verify Contract Artifacts
+        run: |
+          node -e "
+            const fs = require('fs');
+            const assert = require('assert');
+            assert(fs.existsSync('contract/managed/cloakpass/keys/issue_pass.prover'), 'Missing issue_pass.prover');
+            assert(fs.existsSync('contract/managed/cloakpass/keys/redeem_pass.prover'), 'Missing redeem_pass.prover');
+            assert(fs.existsSync('contract/managed/cloakpass/zkir/issue_pass.zkir'), 'Missing issue_pass.zkir');
+            assert(fs.existsSync('contract/managed/cloakpass/zkir/redeem_pass.zkir'), 'Missing redeem_pass.zkir');
+            console.log('✓ All Zero-Knowledge proving keys and ZKIR circuits verified.');
+          "
+
+      - name: TypeScript Typecheck
+        run: npm run typecheck
+
+      - name: Run Test Suite (Core Runner)
+        run: npm test
+
+      - name: Run Vitest Suite
+        run: npx vitest run
+
+      - name: Build Frontend Production Bundle
+        run: npm run build:frontend
+
+      - name: Verify Deployment Script (Dry Run)
+        run: node scripts/deploy.mjs preprod
