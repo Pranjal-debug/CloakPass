@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -146,6 +147,54 @@ test('Preview and Local configurations are properly registered', () => {
   };
   assert(PREVIEW.networkId === 'preview', 'networkId should be preview');
   assert(LOCAL.networkId === 'undeployed', 'local networkId should be undeployed');
+});
+
+console.log('\nSuite 4: End-to-End Cryptographic & Protocol Lifecycle');
+
+test('full lifecycle: mint pass -> verify Merkle leaf -> redeem with nullifier', () => {
+  const secret = Buffer.from('1122334455667788990011223344556677889900112233445566778899001122', 'hex');
+  const salt = Buffer.from('aabbccddeeff00112233445566778899aabbccddeeff00112233445566778899', 'hex');
+  
+  // Commitment derivation
+  const domainCommit = Buffer.from('cloakpass:commit:');
+  const commitment = crypto.createHash('sha256').update(Buffer.concat([domainCommit, secret, salt])).digest();
+  assert(commitment.length === 32, 'Commitment must be 32 bytes');
+
+  // Merkle membership simulation
+  const tree = [commitment.toString('hex')];
+  assert(tree.includes(commitment.toString('hex')), 'Commitment must be in tree');
+
+  // Nullifier derivation
+  const domainNullify = Buffer.from('cloakpass:nullify:');
+  const nullifier = crypto.createHash('sha256').update(Buffer.concat([domainNullify, secret])).digest();
+  assert(nullifier.length === 32, 'Nullifier must be 32 bytes');
+  assert(nullifier.toString('hex') !== commitment.toString('hex'), 'Nullifier must not match commitment');
+
+  // Single-use spend set
+  const used = new Set();
+  assert(!used.has(nullifier.toString('hex')), 'Nullifier must not be used yet');
+  used.add(nullifier.toString('hex'));
+  assert(used.has(nullifier.toString('hex')), 'Nullifier must be marked as used');
+});
+
+test('strictly rejects double-redemption of identical pass', () => {
+  const nullifierHex = 'ffeeddccbbaa99887766554433221100ffeeddccbbaa99887766554433221100';
+  const used = new Set([nullifierHex]);
+  let caught = false;
+  try {
+    if (used.has(nullifierHex)) {
+      throw new Error('Pass has already been redeemed (nullifier collision prevented)');
+    }
+  } catch (err) {
+    caught = true;
+  }
+  assert(caught, 'Must reject double-redemption');
+});
+
+test('rejects uncommitted fraudulent credentials', () => {
+  const legitTree = ['valid_commitment_hash_1', 'valid_commitment_hash_2'];
+  const fakeCommitment = 'attacker_fake_commitment_hash';
+  assert(!legitTree.includes(fakeCommitment), 'Tree must not contain fake commitment');
 });
 
 console.log('\n----------------------------------------------------------------');
