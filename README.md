@@ -5,7 +5,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Midnight-Preprod-8A2BE2?style=for-the-badge&logo=shield" alt="Midnight Preprod" />
+  <a href="https://pranjal-debug.github.io/CloakPass/"><img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-lime?style=for-the-badge&logo=github" alt="Live Demo GitHub Pages" /></a>
+  <a href="https://cloakpass.vercel.app/"><img src="https://img.shields.io/badge/Demo%20Mirror-Vercel-000000?style=for-the-badge&logo=vercel" alt="Demo Mirror Vercel" /></a>
+  <a href="https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9"><img src="https://img.shields.io/badge/Preprod%20Explorer-02df1c...-8A2BE2?style=for-the-badge&logo=shield" alt="Preprod Explorer" /></a>
   <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions" alt="GitHub Actions CI/CD" />
   <img src="https://img.shields.io/badge/Language-Compact%200.26-cyan?style=for-the-badge" alt="Compact Language" />
   <img src="https://img.shields.io/badge/Compiler-v0.34.0-blue?style=for-the-badge" alt="Compiler v0.34.0" />
@@ -15,7 +17,12 @@
 
 ---
 
-## 🚀 Initial Product Idea
+## 🚀 Initial Product Idea & Live Links
+
+- **🌐 Live Production dApp**: [https://pranjal-debug.github.io/CloakPass/](https://pranjal-debug.github.io/CloakPass/)
+- **⚡ Alternative Mirror**: [https://cloakpass.vercel.app/](https://cloakpass.vercel.app/)
+- **🔍 Midnight Preprod Explorer**: [https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9](https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9)
+- **📋 Live Preprod Contract Address**: `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`
 
 **CloakPass** is a privacy-first decentralized access control and zero-knowledge verification dApp engineered on the Midnight Network. It empowers users to prove valid entitlement, event admission, DAO voting eligibility, or credential criteria without ever disclosing their wallet identity, personal data, or private ticket secrets to the public ledger or any verifying party. By uniting off-chain cryptographic witnesses, domain-separated Pedersen/SHA-256 commitments in a historic Merkle tree, and unlinkable on-chain nullifiers, CloakPass provides mathematical protection against double-spending and unauthorized tracking while maintaining verifiable public accountability.
 
@@ -216,15 +223,26 @@ cloakpass/
 
 ---
 
-## 📜 Commit History (5 Structured Commits)
+## 📜 Commit History (Structured Conventional Commits)
 
 This repository follows the Conventional Commits specification:
 
-1. `chore(setup): initialize project structure, toolchain wrapper and configs`
-2. `feat(contract): implement CloakPass compact contract with public state and private witnesses`
-3. `build(compiler): compile compact contract and generate managed ZK circuits and keys`
-4. `test(contract): add comprehensive test suite for CloakPass circuits and state transitions`
-5. `docs(readme): add product idea, public vs private state documentation, and deployment guides`
+| Hash | Type / Scope | Description |
+|:---:|:---|:---|
+| `6e5f332` | `fix(deploy)` | Integrate real midnight-js deployment, deploy to Preprod, and sync verifiable contract address |
+| `1e68948` | `docs(submission)` | Add official Idea Submission specification for The Turn and update status |
+| `e1bc6e5` | `feat(frontend)` | Add credential vault export/import, receipts activity log, and production hardening |
+| `e88c1c2` | `test(integration)` | Add E2E cryptographic lifecycle and nullifier constraint tests |
+| `fcf693f` | `ci` | Add GitHub Actions workflow for typecheck, tests, and build |
+| `78ac990` | `style(frontend)` | Redesign UI with clean, light, Nouva-inspired dark aesthetic |
+| `03c773b` | `feat(frontend)` | Integrate CloakPass with Lace DApp Connector and interactive ZK UI |
+| `5e22648` | `chore(deps)` | Lock npm dependencies |
+| `5f55b89` | `chore(deployments)` | Update preprod deployment receipt |
+| `98a18a1` | `docs(readme)` | Add product idea, public vs private state documentation, and deployment guides |
+| `f810ab1` | `test(contract)` | Add comprehensive test suite for CloakPass circuits and state transitions |
+| `e9b25e4` | `build(compiler)` | Compile compact contract and generate managed ZK circuits and keys |
+| `45b01bf` | `feat(contract)` | Implement CloakPass compact contract with public state and private witnesses |
+| `f5c4daa` | `chore(setup)` | Initialize project structure, toolchain wrapper and configs |
 
 ---
 

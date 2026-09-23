@@ -5,6 +5,7 @@
 **Track**: Privacy-Preserving Applications on Midnight  
 **Selected Problem Statement**: *Privacy-Preserving Access Control & Sybil-Resistant Verification (Proof of Entitlement Without Identity Exposure)*  
 **Live Preprod Contract**: `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`  
+**Live Demo Application**: [https://pranjal-debug.github.io/CloakPass/](https://pranjal-debug.github.io/CloakPass/) (Mirror: [https://cloakpass.vercel.app/](https://cloakpass.vercel.app/))  
 **GitHub Repository**: [https://github.com/Pranjal-debug/CloakPass](https://github.com/Pranjal-debug/CloakPass)
 
 ---

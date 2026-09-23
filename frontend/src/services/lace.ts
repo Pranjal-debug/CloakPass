@@ -3,6 +3,8 @@
  * Supports official CAIP-372 API and convenience alias window.midnight.mnLace
  */
 
+import { type ConnectedAPI, type InitialAPI } from '@midnight-ntwrk/dapp-connector-api';
+
 export interface WalletAccount {
   name: string;
   icon?: string;
@@ -40,7 +42,11 @@ declare global {
 }
 
 export class LaceConnector {
-  private connectedApi: any = null;
+  private connectedApi: ConnectedAPI | null = null;
+
+  public getConnectedApi(): ConnectedAPI | null {
+    return this.connectedApi;
+  }
 
   /**
    * Check if Midnight Lace extension is injected
@@ -179,10 +185,6 @@ export class LaceConnector {
     };
 
     return account;
-  }
-
-  public getConnectedApi(): any {
-    return this.connectedApi;
   }
 }
 

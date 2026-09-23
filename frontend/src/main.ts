@@ -106,11 +106,11 @@ function renderPassList() {
         </div>
         <div class="data-item">
           <span class="data-key">Private Witness Secret:</span>
-          <span class="data-val" style="color: #c084fc;">0x${pass.secret.slice(0, 18)}... (Shielded)</span>
+          <span class="data-val" style="color: #4ade80;">●●●●●●●● (Concealed in Client Vault)</span>
         </div>
         <div class="data-item">
           <span class="data-key">Private Blinding Salt:</span>
-          <span class="data-val" style="color: #c084fc;">0x${pass.salt.slice(0, 18)}... (Shielded)</span>
+          <span class="data-val" style="color: #4ade80;">●●●●●●●● (Concealed in Client Vault)</span>
         </div>
         <div class="data-item">
           <span class="data-key">Minted Timestamp:</span>
@@ -276,6 +276,7 @@ async function handleWalletConnect() {
   if (activeAccount) {
     // Disconnect
     activeAccount = null;
+    contractService.setConnectedWallet(null);
     walletStatusText.textContent = 'Connect Lace Wallet';
     walletAddressPill.style.display = 'none';
     walletBtn.classList.remove('btn-ghost');
@@ -297,6 +298,7 @@ async function handleWalletConnect() {
       showToast('Connected in Preprod Simulation Mode (Lace API v4)!');
     }
 
+    contractService.setConnectedWallet(laceConnector.getConnectedApi());
     walletStatusText.textContent = activeAccount.name;
     walletAddressPill.textContent = `${activeAccount.unshieldedAddress.slice(0, 10)}...${activeAccount.unshieldedAddress.slice(-6)}`;
     walletAddressPill.style.display = 'inline-flex';
@@ -347,11 +349,11 @@ async function handleIssuePass(e: Event) {
             </div>
             <div class="data-item">
               <span class="data-key">Private Secret (Witness):</span>
-              <span class="data-val" style="color: #c084fc;">0x${newPass.secret.slice(0, 18)}...</span>
+              <span class="data-val" style="color: #4ade80;">●●●●●●●● (Concealed in Client Vault)</span>
             </div>
             <div class="data-item">
               <span class="data-key">Private Blinding Salt:</span>
-              <span class="data-val" style="color: #c084fc;">0x${newPass.salt.slice(0, 18)}...</span>
+              <span class="data-val" style="color: #4ade80;">●●●●●●●● (Concealed in Client Vault)</span>
             </div>
           </div>
 
