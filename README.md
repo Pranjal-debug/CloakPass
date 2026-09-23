@@ -6,10 +6,11 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Midnight-Preprod-8A2BE2?style=for-the-badge&logo=shield" alt="Midnight Preprod" />
+  <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions" alt="GitHub Actions CI/CD" />
   <img src="https://img.shields.io/badge/Language-Compact%200.26-cyan?style=for-the-badge" alt="Compact Language" />
   <img src="https://img.shields.io/badge/Compiler-v0.34.0-blue?style=for-the-badge" alt="Compiler v0.34.0" />
   <img src="https://img.shields.io/badge/Zero--Knowledge-Groth16%20Circuits-emerald?style=for-the-badge" alt="ZK Circuits" />
-  <img src="https://img.shields.io/badge/Tests-Passing-success?style=for-the-badge" alt="Tests Passing" />
+  <img src="https://img.shields.io/badge/Tests-15%20Passing-success?style=for-the-badge" alt="Tests 15 Passing" />
 </p>
 
 ---
@@ -26,9 +27,9 @@
 |:---:|---|:---:|---|
 | **🌑 Level 1** | **New Moon (Setup & Contract)** | ✅ **PASS** | Compact compiler `v0.34.0`, `cloakpass.compact`, ZK circuits & keys, 8/8 tests, Preprod deployment |
 | **🌒 Level 2** | **Waxing Crescent (Frontend UI)** | ✅ **PASS** | Interactive Vite frontend, Lace DApp Connector v4, pass minting & ZK gate redemption |
-| **🌓 Level 3** | **First Quarter (Production dApp)** | ⏳ **PENDING** | End-to-end integration tests, CI/CD pipeline, performance optimization |
-| **🌓 The Turn** | **Idea Submission** | ⏳ **PENDING** | Official idea submission against problem statement |
-| **🌔 Level 4** | **Waxing Gibbous (MVP Live)** | ⏳ **PENDING** | Production MVP on Preprod, public documentation, X product profile |
+| **🌓 Level 3** | **First Quarter (Production dApp)** | ✅ **PASS** | GitHub Actions CI/CD, 15 Vitest & lifecycle tests, credential vault export/import, Activity log |
+| **🌓 The Turn** | **Idea Submission** | ✅ **PASS** | [SUBMISSION_THE_TURN.md](./SUBMISSION_THE_TURN.md): Formulated problem statement, architecture, threat model |
+| **🌔 Level 4** | **Waxing Gibbous (MVP Live)** | ⏳ **UPCOMING** | Production MVP on Preprod, public documentation, X product profile |
 | **🌕 Level 5** | **Full Moon (User Feedback)** | ⏳ **PENDING** | Feedback loop & 50 Preprod users |
 | **🌝 Level 6** | **Supermoon (Mainnet Launch)** | ⏳ **PENDING** | Mainnet deployment, brand assets & 20 active users |
 
@@ -171,6 +172,9 @@ npm run deploy:local
 
 ```
 cloakpass/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                  # Multi-step GitHub Actions CI/CD pipeline
 ├── contract/
 │   ├── cloakpass.compact           # Compact contract source code
 │   ├── index.ts                    # Contract exports & ZK config path
@@ -180,19 +184,29 @@ cloakpass/
 │       ├── contract/               # Generated JS/TS runtime bindings
 │       ├── keys/                   # Groth16 Prover & Verifier keys
 │       └── zkir/                   # Zero-Knowledge Intermediate Representation (.zkir)
+├── frontend/                       # Production Vite 7 Web Application (Nouva theme)
+│   ├── src/
+│   │   ├── services/
+│   │   │   ├── contract.ts         # ZK client, domain hashing & vault manager
+│   │   │   └── lace.ts             # Midnight DApp Connector v4 & Lace wallet
+│   │   ├── main.ts                 # Reactive UI orchestrator & credential exporter
+│   │   └── style.css               # Clean minimalist Vanilla CSS design system
+│   └── index.html                  # Bento-grid dashboard, ZK gate & Activity log
 ├── src/
 │   ├── config.ts                   # Preprod, Preview, and Local network endpoints
 │   ├── providers.ts                # Midnight SDK provider builder
 │   └── test/
-│       └── cloakpass.test.ts       # Comprehensive Vitest contract test suite
+│       ├── cloakpass.test.ts       # 10 Vitest contract test suite
+│       └── integration.test.ts     # 5 E2E lifecycle & cryptographic constraint tests
 ├── scripts/
 │   ├── compile-compact.mjs         # Cross-platform compiler wrapper
 │   ├── compact-cli.mjs             # Unified compact CLI runner
 │   ├── deploy.mjs                  # Multi-network deployment runner
-│   └── test-runner.mjs             # Zero-dependency test runner
+│   └── test-runner.mjs             # Zero-dependency test runner (11 tests)
 ├── docs/
 │   ├── assets/banner.jpg           # CloakPass project branding
 │   └── screenshots/                # Compile and deployment output visual logs
+├── SUBMISSION_THE_TURN.md          # Official Level 3 Idea Submission specification
 ├── compact.cmd                     # Windows compact CLI wrapper
 ├── compose.yml                     # Local Midnight network docker composition
 ├── package.json
