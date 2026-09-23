@@ -47,6 +47,7 @@ export class CloakPassContractService {
   private commitments: string[] = [];
   private usedNullifiers: Set<string> = new Set();
   private passes: PassRecord[] = [];
+  private receipts: RedemptionReceipt[] = [];
   private totalIssued: number = 0;
   private totalRedeemed: number = 0;
   private organizerPk: string = '0xeb8917d80bf1eb4f7600358a51cb2e9ed9b2994293637b3c4a9eac0b399b88cd';
@@ -66,6 +67,7 @@ export class CloakPassContractService {
         this.commitments = parsed.commitments || [];
         this.usedNullifiers = new Set(parsed.usedNullifiers || []);
         this.passes = parsed.passes || [];
+        this.receipts = parsed.receipts || [];
         this.totalIssued = parsed.totalIssued || this.commitments.length;
         this.totalRedeemed = parsed.totalRedeemed || this.usedNullifiers.size;
       }
@@ -80,6 +82,7 @@ export class CloakPassContractService {
         commitments: this.commitments,
         usedNullifiers: Array.from(this.usedNullifiers),
         passes: this.passes,
+        receipts: this.receipts,
         totalIssued: this.totalIssued,
         totalRedeemed: this.totalRedeemed,
       }));
@@ -285,7 +288,7 @@ export class CloakPassContractService {
     const randomHex = (len: number) => Array.from(crypto.getRandomValues(new Uint8Array(len)))
       .map(b => b.toString(16).padStart(2, '0')).join('');
 
-    return {
+    const receipt: RedemptionReceipt = {
       success: true,
       passId: pass?.id || `PASS-EXT-${leafIndex}`,
       nullifier: `0x${nullifier}`,
@@ -294,6 +297,112 @@ export class CloakPassContractService {
       merkleRoot: `0x${randomHex(32)}`,
       proofTimeMs,
       redeemedAt: new Date().toISOString(),
+    };
+
+    this.receipts.unshift(receipt);
+    this.persistState();
+
+    return receipt;
+  }
+
+  public getReceipts(): RedemptionReceipt[] {
+    return [...this.receipts];
+  }
+
+  /**
+   * Export all passes as serialized JSON credential file
+   */
+  public exportPassesJson(): string {
+    return JSON.stringify({
+      schema: 'cloakpass-credentials-v1',
+      network: this.network,
+      contractAddress: this.contractAddress,
+      exportedAt: new Date().toISOString(),
+      passes: this.passes,
+    }, null, 2);
+  }
+
+  /**
+   * Export a single pass as serialized JSON credential
+   */
+  public exportPassJson(passId: string): string | null {
+    const pass = this.passes.find(p => p.id === passId);
+    if (!pass) return null;
+    return JSON.stringify({
+      schema: 'cloakpass-credential-single-v1',
+      network: this.network,
+      contractAddress: this.contractAddress,
+      exportedAt: new Date().toISOString(),
+      pass,
+    }, null, 2);
+  }
+
+  /**
+   * Import credentials JSON, validate cryptographic integrity, and add to vault
+   */
+  public async importPassesFromJson(jsonStr: string): Promise<{ imported: number; message: string }> {
+    let parsed: any;
+    try {
+      parsed = JSON.parse(jsonStr);
+    } catch {
+      throw new Error('Invalid JSON format: Could not parse pass credential file.');
+    }
+
+    const candidatePasses: PassRecord[] = [];
+    if (parsed.schema === 'cloakpass-credentials-v1' && Array.isArray(parsed.passes)) {
+      candidatePasses.push(...parsed.passes);
+    } else if (parsed.schema === 'cloakpass-credential-single-v1' && parsed.pass) {
+      candidatePasses.push(parsed.pass);
+    } else if (parsed.secret && parsed.salt) {
+      // Raw single credential object
+      candidatePasses.push({
+        id: parsed.id || `PASS-IMP-${Math.floor(1000 + Math.random() * 9000)}`,
+        title: parsed.title || 'Imported Midnight Pass',
+        holderName: parsed.holderName || 'Confidential Holder',
+        secret: parsed.secret,
+        salt: parsed.salt,
+        commitment: parsed.commitment || await this.computeCommitment(parsed.secret, parsed.salt),
+        nullifier: parsed.nullifier || await this.computeNullifier(parsed.secret),
+        issuedAt: parsed.issuedAt || new Date().toISOString(),
+        isRedeemed: Boolean(parsed.isRedeemed),
+        leafIndex: typeof parsed.leafIndex === 'number' ? parsed.leafIndex : this.commitments.length,
+      });
+    } else {
+      throw new Error('Unrecognized credential schema. Missing valid CloakPass credentials.');
+    }
+
+    let importedCount = 0;
+    for (const cp of candidatePasses) {
+      if (!cp.secret || !cp.salt) continue;
+      const cleanSecret = cp.secret.replace(/^0x/, '');
+      const cleanSalt = cp.salt.replace(/^0x/, '');
+      if (cleanSecret.length !== 64 || cleanSalt.length !== 64) continue;
+
+      const expectedCommitment = await this.computeCommitment(cleanSecret, cleanSalt);
+      const expectedNullifier = await this.computeNullifier(cleanSecret);
+
+      const alreadyExists = this.passes.some(p => p.commitment === expectedCommitment);
+      if (!alreadyExists) {
+        if (!this.commitments.includes(expectedCommitment)) {
+          this.commitments.push(expectedCommitment);
+        }
+        const isSpent = this.usedNullifiers.has(expectedNullifier);
+        this.passes.unshift({
+          ...cp,
+          commitment: expectedCommitment,
+          nullifier: expectedNullifier,
+          isRedeemed: isSpent || Boolean(cp.isRedeemed),
+        });
+        importedCount++;
+      }
+    }
+
+    this.totalIssued = Math.max(this.totalIssued, this.commitments.length);
+    this.persistState();
+
+    return {
+      imported: importedCount,
+      message: `Successfully imported ${importedCount} credential(s) into local vault.`,
     };
   }
 

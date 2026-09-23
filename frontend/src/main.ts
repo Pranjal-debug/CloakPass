@@ -3,7 +3,7 @@ import { laceConnector, type WalletAccount } from './services/lace';
 import { contractService, type PassRecord, type RedemptionReceipt } from './services/contract';
 
 let activeAccount: WalletAccount | null = null;
-let currentTab: 'issue' | 'redeem' | 'passes' = 'issue';
+let currentTab: 'issue' | 'redeem' | 'passes' | 'receipts' = 'issue';
 
 // --- UI Element Selectors ---
 const walletBtn = document.getElementById('wallet-connect-btn') as HTMLButtonElement;
@@ -27,6 +27,14 @@ const redeemSaltInput = document.getElementById('redeem-salt') as HTMLInputEleme
 
 const quickSelectContainer = document.getElementById('quick-select-passes') as HTMLDivElement;
 const passesListContainer = document.getElementById('all-passes-list') as HTMLDivElement;
+const receiptsListContainer = document.getElementById('all-receipts-list') as HTMLDivElement;
+
+const btnExportAll = document.getElementById('btn-export-all-passes') as HTMLButtonElement;
+const btnImportPasses = document.getElementById('btn-import-passes') as HTMLButtonElement;
+const importFileInput = document.getElementById('import-file-input') as HTMLInputElement;
+
+const btnLoadGateFile = document.getElementById('btn-load-gate-file') as HTMLButtonElement;
+const gateFileInput = document.getElementById('gate-file-input') as HTMLInputElement;
 
 const toastContainer = document.getElementById('toast-container') as HTMLDivElement;
 
@@ -57,12 +65,24 @@ function updateStatsUI() {
   }
 }
 
+function triggerDownload(filename: string, content: string) {
+  const blob = new Blob([content], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function renderPassList() {
   const passes = contractService.getAllPasses();
   if (!passesListContainer) return;
 
   if (passes.length === 0) {
-    passesListContainer.innerHTML = `<div style="text-align: center; color: var(--text-dim); padding: 48px 0; font-size: 14px;">No access passes issued yet. Mint your first pass above!</div>`;
+    passesListContainer.innerHTML = `<div style="text-align: center; color: var(--text-dim); padding: 48px 0; font-size: 14px;">No access passes in vault yet. Mint your first pass above or import a credential file!</div>`;
     return;
   }
 
@@ -89,21 +109,31 @@ function renderPassList() {
           <span class="data-val" style="color: #c084fc;">0x${pass.secret.slice(0, 18)}... (Shielded)</span>
         </div>
         <div class="data-item">
+          <span class="data-key">Private Blinding Salt:</span>
+          <span class="data-val" style="color: #c084fc;">0x${pass.salt.slice(0, 18)}... (Shielded)</span>
+        </div>
+        <div class="data-item">
           <span class="data-key">Minted Timestamp:</span>
           <span class="data-val">${new Date(pass.issuedAt).toLocaleTimeString()}</span>
         </div>
       </div>
 
-      <div style="display: flex; gap: 10px;">
+      <div class="card-actions-row">
         ${!pass.isRedeemed ? `
-          <button type="button" class="action-btn btn-ghost btn-block auto-fill-btn" data-secret="${pass.secret}" data-salt="${pass.salt}">
-            ⚡ Verify at Zero-Knowledge Gate
+          <button type="button" class="action-btn btn-white btn-sm auto-fill-btn" data-secret="${pass.secret}" data-salt="${pass.salt}">
+            ⚡ Verify at ZK Gate
           </button>
         ` : `
-          <button type="button" class="action-btn btn-ghost btn-block" disabled style="opacity: 0.5;">
+          <button type="button" class="action-btn btn-ghost btn-sm" disabled style="opacity: 0.5;">
             ✓ Nullified on Ledger
           </button>
         `}
+        <button type="button" class="action-btn btn-ghost btn-sm download-pass-btn" data-pass-id="${pass.id}">
+          💾 Download .json
+        </button>
+        <button type="button" class="action-btn btn-ghost btn-sm copy-keys-btn" data-secret="${pass.secret}" data-salt="${pass.salt}">
+          📋 Copy Keys
+        </button>
       </div>
     </div>
   `).join('');
@@ -120,6 +150,82 @@ function renderPassList() {
       showToast('Loaded pass credentials into Gate!');
     });
   });
+
+  // Attach download single pass events
+  document.querySelectorAll('.download-pass-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const passId = target.dataset.passId || '';
+      const jsonStr = contractService.exportPassJson(passId);
+      if (jsonStr) {
+        triggerDownload(`${passId.toLowerCase()}-credential.json`, jsonStr);
+        showToast(`Exported ${passId} credential file!`);
+      }
+    });
+  });
+
+  // Attach copy keys events
+  document.querySelectorAll('.copy-keys-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const secret = target.dataset.secret || '';
+      const salt = target.dataset.salt || '';
+      const text = `Secret: ${secret}\nSalt: ${salt}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Copied Secret & Salt to clipboard!');
+      } catch {
+        showToast('Clipboard access denied', 'error');
+      }
+    });
+  });
+}
+
+function renderReceiptsList() {
+  if (!receiptsListContainer) return;
+  const receipts = contractService.getReceipts();
+
+  if (receipts.length === 0) {
+    receiptsListContainer.innerHTML = `
+      <div style="text-align: center; color: var(--text-dim); padding: 48px 0; font-size: 14px;">
+        No redemption activity recorded yet. Passes redeemed through the Zero-Knowledge Gate will generate cryptographically verifiable receipts here.
+      </div>
+    `;
+    return;
+  }
+
+  receiptsListContainer.innerHTML = receipts.map(rcpt => `
+    <div class="receipt-card">
+      <div class="receipt-card-header">
+        <div>
+          <span style="font-size: 14px; font-weight: 700; color: #fff;">Pass ${rcpt.passId} Redeemed</span>
+          <span style="font-size: 12px; color: var(--text-muted); margin-left: 8px;">${new Date(rcpt.redeemedAt).toLocaleString()}</span>
+        </div>
+        <span class="receipt-status-pill">
+          ✓ Verified in ${rcpt.proofTimeMs}ms
+        </span>
+      </div>
+
+      <div class="ticket-data-grid">
+        <div class="data-item">
+          <span class="data-key">Disclosed Nullifier:</span>
+          <span class="data-val" style="color: var(--accent-lime);">${rcpt.nullifier.slice(0, 20)}...</span>
+        </div>
+        <div class="data-item">
+          <span class="data-key">Preprod Block Height:</span>
+          <span class="data-val">#${rcpt.blockHeight}</span>
+        </div>
+        <div class="data-item">
+          <span class="data-key">Transaction Hash:</span>
+          <span class="data-val">${rcpt.txHash.slice(0, 18)}...</span>
+        </div>
+        <div class="data-item">
+          <span class="data-key">Ledger Merkle Root:</span>
+          <span class="data-val">${rcpt.merkleRoot.slice(0, 18)}...</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderQuickSelect() {
@@ -127,12 +233,11 @@ function renderQuickSelect() {
   if (!quickSelectContainer) return;
 
   if (passes.length === 0) {
-    quickSelectContainer.innerHTML = `<span style="font-size: 13px; color: var(--text-dim);">No active passes available. Issue one first!</span>`;
+    quickSelectContainer.innerHTML = `<span style="font-size: 13px; color: var(--text-dim);">No active passes available. Issue or import one first!</span>`;
     return;
   }
 
   quickSelectContainer.innerHTML = `
-    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Select an active pass to load credentials:</div>
     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
       ${passes.map(p => `
         <button type="button" class="action-btn btn-ghost quick-pass-pill" data-secret="${p.secret}" data-salt="${p.salt}" style="font-size: 12px; padding: 6px 14px;">
@@ -151,7 +256,7 @@ function renderQuickSelect() {
   });
 }
 
-function switchTab(tab: 'issue' | 'redeem' | 'passes') {
+function switchTab(tab: 'issue' | 'redeem' | 'passes' | 'receipts') {
   currentTab = tab;
   document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(c => c.classList.remove('active'));
@@ -163,6 +268,7 @@ function switchTab(tab: 'issue' | 'redeem' | 'passes') {
 
   if (tab === 'passes') renderPassList();
   if (tab === 'redeem') renderQuickSelect();
+  if (tab === 'receipts') renderReceiptsList();
 }
 
 // --- Wallet Connect Event Handler ---
@@ -360,6 +466,82 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('tab-btn-issue')?.addEventListener('click', () => switchTab('issue'));
   document.getElementById('tab-btn-redeem')?.addEventListener('click', () => switchTab('redeem'));
   document.getElementById('tab-btn-passes')?.addEventListener('click', () => switchTab('passes'));
+  document.getElementById('tab-btn-receipts')?.addEventListener('click', () => switchTab('receipts'));
+
+  // Export All Passes
+  if (btnExportAll) {
+    btnExportAll.addEventListener('click', () => {
+      const passes = contractService.getAllPasses();
+      if (passes.length === 0) {
+        showToast('No passes to export.', 'error');
+        return;
+      }
+      const json = contractService.exportPassesJson();
+      triggerDownload(`cloakpass-vault-${Date.now()}.json`, json);
+      showToast(`Exported ${passes.length} credential(s) to JSON file!`);
+    });
+  }
+
+  // Import Passes Vault
+  if (btnImportPasses && importFileInput) {
+    btnImportPasses.addEventListener('click', () => importFileInput.click());
+    importFileInput.addEventListener('change', async (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const res = await contractService.importPassesFromJson(text);
+        showToast(res.message);
+        renderPassList();
+        renderQuickSelect();
+        updateStatsUI();
+      } catch (err: any) {
+        showToast(err.message, 'error');
+      } finally {
+        importFileInput.value = '';
+      }
+    });
+  }
+
+  // Load Credential directly into Gate
+  if (btnLoadGateFile && gateFileInput) {
+    btnLoadGateFile.addEventListener('click', () => gateFileInput.click());
+    gateFileInput.addEventListener('change', async (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+        let secret = '';
+        let salt = '';
+
+        if (parsed.schema === 'cloakpass-credential-single-v1' && parsed.pass) {
+          secret = parsed.pass.secret;
+          salt = parsed.pass.salt;
+        } else if (parsed.schema === 'cloakpass-credentials-v1' && Array.isArray(parsed.passes) && parsed.passes.length > 0) {
+          // First active or first pass
+          const active = parsed.passes.find((p: any) => !p.isRedeemed) || parsed.passes[0];
+          secret = active.secret;
+          salt = active.salt;
+        } else if (parsed.secret && parsed.salt) {
+          secret = parsed.secret;
+          salt = parsed.salt;
+        }
+
+        if (!secret || !salt) {
+          throw new Error('Credential file missing valid secret and salt fields.');
+        }
+
+        if (redeemSecretInput) redeemSecretInput.value = secret;
+        if (redeemSaltInput) redeemSaltInput.value = salt;
+        showToast('Successfully loaded credential into Gate!');
+      } catch (err: any) {
+        showToast(err.message, 'error');
+      } finally {
+        gateFileInput.value = '';
+      }
+    });
+  }
 
   updateStatsUI();
   renderQuickSelect();
