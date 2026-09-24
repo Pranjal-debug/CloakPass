@@ -1,37 +1,38 @@
 /* ==========================================================================
-   CloakPass - Clean, Refined Minimalist Dark Theme (Inspired by Nouva)
+   CloakPass - Midnight Obsidian Design System (Engineered with Stitch)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  /* Clean Nouva Color Palette */
+  /* Midnight Obsidian Palette */
   --bg-main: #080c12;
-  --bg-surface: #0e131d;
-  --bg-card: #101724;
-  --bg-card-subtle: rgba(255, 255, 255, 0.02);
-  --bg-input: #0b0f17;
+  --bg-surface: #10141a;
+  --bg-card: #181c22;
+  --bg-card-subtle: #1c2026;
+  --bg-input: #0a0e14;
 
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --border-active: rgba(255, 255, 255, 0.28);
+  --border-subtle: rgba(148, 163, 184, 0.12);
+  --border-hover: rgba(140, 255, 46, 0.35);
+  --border-active: rgba(140, 255, 46, 0.6);
 
-  /* Nouva Signature Accent: Electric Lime */
+  /* Signature Electric Accent & Shielded Spectrum */
   --accent-lime: #8cff2e;
   --accent-lime-muted: rgba(140, 255, 46, 0.12);
+  --accent-lime-glow: rgba(140, 255, 46, 0.35);
   --accent-cyan: #38bdf8;
   --accent-emerald: #10b981;
   --accent-rose: #f43f5e;
 
   /* Typography */
-  --text-primary: #ffffff;
-  --text-secondary: #99a0b0;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-dim: #475569;
 
-  --font-display: 'Onest', 'Inter', -apple-system, sans-serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Geist', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --radius-xs: 6px;
@@ -40,8 +41,8 @@
   --radius-lg: 20px;
   --radius-full: 9999px;
 
-  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-float: 0 12px 36px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-subtle);
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --shadow-float: 0 16px 40px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-subtle);
 }
 
 *, *::before, *::after {
@@ -435,17 +436,34 @@ body {
 
 /* Clean Pass Ticket Card */
 .ticket-clean {
-  background: #090d16;
-  border: 1px solid var(--border-subtle);
+  background: linear-gradient(135deg, rgba(24, 28, 34, 0.95) 0%, rgba(10, 14, 20, 0.98) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.16);
   border-radius: var(--radius-md);
-  padding: 22px;
+  padding: 24px;
   margin-bottom: 16px;
-  transition: border-color 0.2s ease;
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease;
+}
+
+.ticket-clean::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(145deg, rgba(140, 255, 46, 0.4), rgba(56, 189, 248, 0.15), rgba(16, 185, 129, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .ticket-clean:hover {
-  border-color: var(--border-hover);
+  border-color: rgba(140, 255, 46, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6), 0 0 20px rgba(140, 255, 46, 0.15);
 }
 
 .ticket-top {
@@ -728,4 +746,130 @@ body {
   color: var(--accent-lime);
   border: 1px solid rgba(140, 255, 46, 0.25);
 }
+
+/* Proof Lifecycle Architecture Section (Stitch Design) */
+.lifecycle-section {
+  margin-top: 56px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.lifecycle-header {
+  margin-bottom: 28px;
+}
+
+.lifecycle-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-lime);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.lifecycle-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.4px;
+}
+
+.lifecycle-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  max-width: 620px;
+}
+
+.lifecycle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 860px) {
+  .lifecycle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lifecycle-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.lifecycle-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.lifecycle-num {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent-lime);
+  margin-bottom: 16px;
+}
+
+.lifecycle-card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.lifecycle-card-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Footer Section */
+.app-footer {
+  margin-top: 64px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent-lime);
+}
+
 

@@ -327,6 +327,55 @@
         </div>
       </div>
     </section>
+
+    <!-- Proof Lifecycle Architecture (Designed with Stitch) -->
+    <section class="lifecycle-section" aria-label="Proof Lifecycle Architecture">
+      <div class="lifecycle-header">
+        <div class="lifecycle-tag">Proof Lifecycle Architecture</div>
+        <h2 class="lifecycle-title">Shielded Verification Pipeline</h2>
+        <p class="lifecycle-desc">
+          How CloakPass leverages Midnight's private state machine and Compact ZK circuits to enforce access control without data retention.
+        </p>
+      </div>
+
+      <div class="lifecycle-grid">
+        <div class="lifecycle-card">
+          <div class="lifecycle-num">01</div>
+          <h3 class="lifecycle-card-title">Blinded Commitment</h3>
+          <p class="lifecycle-card-text">
+            Pass issuer or attendee generates local private witnesses (32-byte secret + blinding salt). A domain-separated cryptographic leaf <code>SHA256("cloakpass:commit:" || secret || salt)</code> is committed to the on-chain Historic Merkle tree.
+          </p>
+        </div>
+
+        <div class="lifecycle-card">
+          <div class="lifecycle-num">02</div>
+          <h3 class="lifecycle-card-title">Client-Side Witness</h3>
+          <p class="lifecycle-card-text">
+            When verifying at the Zero-Knowledge Gate, Lace Wallet executes the Compact circuit off-chain. The private key and blinding salt are evaluated in browser RAM, never broadcasted to the network or exposed to the gatekeeper.
+          </p>
+        </div>
+
+        <div class="lifecycle-card">
+          <div class="lifecycle-num">03</div>
+          <h3 class="lifecycle-card-title">Nullifier Verification</h3>
+          <p class="lifecycle-card-text">
+            The circuit derives single-use nullifier <code>SHA256("cloakpass:nullify:" || secret)</code>. The Midnight contract verifies Merkle membership against historical roots and asserts the nullifier is unspent, granting entry in ~500ms.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>
+        <strong>CloakPass</strong> • Powered by Midnight Network ZK-Proofs. All rights shielded.
+      </div>
+      <div class="footer-links">
+        <a href="https://docs.midnight.network" target="_blank" rel="noopener noreferrer">Midnight Docs ↗</a>
+        <a href="https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9" target="_blank" rel="noopener noreferrer">Preprod Explorer ↗</a>
+        <a href="https://github.com/Pranjal-debug/CloakPass" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+    </footer>
   </div>
 
   <!-- Toast Container -->
