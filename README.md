@@ -90,7 +90,24 @@ Because the nullifier is derived with a different cryptographic domain tag (`"cl
 
 ---
 
-## 📸 Compilation & Deployment Verification
+## 🔒 Privacy Model: What an Observer Learns vs. Cannot Learn
+
+| Data Property | Can an Observer Learn It? | Verification Mechanism |
+|:---|:---:|:---|
+| **Total Passes Issued / Redeemed** | ✅ **YES (Public)** | Disclosed public ledger counters (`totalIssued`, `totalRedeemed`). |
+| **Commitment Root** | ✅ **YES (Public)** | On-chain `HistoricMerkleTree<10, Bytes<32>>` root states. |
+| **Disclosed Nullifier** | ✅ **YES (Public)** | Single-use nullifier hash published to `usedNullifiers` registry. |
+| **Transaction Block Height & Timestamp** | ✅ **YES (Public)** | Standard Midnight Preprod block header telemetry. |
+| **Pass Holder Identity / Real Name** | ❌ **NO (Shielded)** | Never provided to contract or stored on-chain. |
+| **Prover Wallet Address** | ❌ **NO (Shielded)** | Lace wallet invokes proving key off-chain; unshielded address is unlinked from the pass. |
+| **Private Ticket Secret (`pass_secret`)** | ❌ **NO (100% Private)** | 32-byte witness evaluated exclusively in client browser RAM. |
+| **Private Blinding Salt (`pass_salt`)** | ❌ **NO (100% Private)** | Cryptographic salt prevents brute-force rainbow table reversal. |
+| **Merkle Leaf Index / Ticket Number** | ❌ **NO (Shielded)** | Groth16 circuit validates tree membership without disclosing leaf position. |
+| **Link Between Minted Pass & Redeemed Pass**| ❌ **NO (Unlinkable)** | Independent domain tags (`"cloakpass:commit:"` vs. `"cloakpass:nullify:"`) break correlation. |
+
+---
+
+## 📸 Compilation, Deployment & Test Verification
 
 ### 1. Successful Compact Compilation (Circuits Listed)
 ```
@@ -116,6 +133,18 @@ Explorer Link    : https://explorer.preprod.midnight.network/contract/02df1c9fa9
 
 <p align="center">
   <img src="docs/screenshots/deployment_output.svg" alt="Midnight Preprod Deployment Output" width="100%" />
+</p>
+
+### 3. Automated Test Suite (15/15 Tests Passing)
+```
+$ npx vitest run
+✓ src/test/integration.test.ts (5 tests) 22ms
+✓ src/test/cloakpass.test.ts (10 tests) 42ms
+Test Files: 2 passed (2) | Tests: 15 passed (15) | Duration: 1.48s
+```
+
+<p align="center">
+  <img src="docs/screenshots/test_output.svg" alt="CloakPass Vitest Test Suite Output" width="100%" />
 </p>
 
 ---

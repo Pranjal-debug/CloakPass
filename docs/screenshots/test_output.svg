@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" width="940" height="500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#8cff2e" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <rect width="940" height="500" rx="16" fill="url(#bg)" stroke="#1e293b" stroke-width="1.5" filter="url(#shadow)" />
+
+  <!-- Window Controls -->
+  <g transform="translate(24, 20)">
+    <circle cx="0" cy="0" r="6.5" fill="#ef4444" />
+    <circle cx="20" cy="0" r="6.5" fill="#f59e0b" />
+    <circle cx="40" cy="0" r="6.5" fill="#10b981" />
+    <text x="80" y="4" fill="#94a3b8" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="12" font-weight="600">bash: npx vitest run (15/15 tests passing)</text>
+  </g>
+
+  <line x1="0" y1="42" x2="940" y2="42" stroke="#1e293b" stroke-width="1" />
+
+  <!-- Terminal Output -->
+  <g transform="translate(28, 70)" font-family="'JetBrains Mono', 'Fira Code', monospace" font-size="12" line-height="1.5">
+    <text y="0" fill="#38bdf8" font-weight="600">$ npx vitest run</text>
+    <text y="22" fill="#64748b">RUN  v3.2.7  D:/downloads/Movies/steller</text>
+
+    <!-- Suite 1 -->
+    <text y="48" fill="#8cff2e" font-weight="700">✓</text>
+    <text y="48" x="20" fill="#f8fafc" font-weight="600">src/test/integration.test.ts</text>
+    <text y="48" x="280" fill="#64748b">(5 tests) 22ms</text>
+
+    <text y="70" x="24" fill="#10b981">✓</text>
+    <text y="70" x="42" fill="#cbd5e1">1. should execute full lifecycle: mint pass -> verify Merkle leaf -> redeem with nullifier</text>
+    <text y="90" x="24" fill="#10b981">✓</text>
+    <text y="90" x="42" fill="#cbd5e1">2. should strictly reject double-redemption of the same pass</text>
+    <text y="110" x="24" fill="#10b981">✓</text>
+    <text y="110" x="42" fill="#cbd5e1">3. should reject fraudulent or uncommitted secret keys</text>
+    <text y="130" x="24" fill="#10b981">✓</text>
+    <text y="130" x="42" fill="#cbd5e1">4. should enforce strict domain separation between commitment and nullifier</text>
+    <text y="150" x="24" fill="#10b981">✓</text>
+    <text y="150" x="42" fill="#cbd5e1">5. should correctly simulate depth-10 Merkle tree capacity (1,024 leaves)</text>
+
+    <!-- Suite 2 -->
+    <text y="180" fill="#8cff2e" font-weight="700">✓</text>
+    <text y="180" x="20" fill="#f8fafc" font-weight="600">src/test/cloakpass.test.ts</text>
+    <text y="180" x="280" fill="#64748b">(10 tests) 42ms</text>
+
+    <text y="202" x="24" fill="#10b981">✓</text>
+    <text y="202" x="42" fill="#cbd5e1">validates compiler output manifest contract-info.json</text>
+    <text y="222" x="24" fill="#10b981">✓</text>
+    <text y="222" x="42" fill="#cbd5e1">witness functions isolate private credentials from public ledger</text>
+    <text y="242" x="24" fill="#10b981">✓</text>
+    <text y="242" x="42" fill="#cbd5e1">verifies Preprod and Preview RPC/indexer network configurations</text>
+    <text y="262" x="24" fill="#10b981">✓</text>
+    <text y="262" x="42" fill="#cbd5e1">verifies Groth16 prover and verifier key integrity</text>
+
+    <!-- Summary Box -->
+    <rect y="290" width="880" height="90" rx="8" fill="rgba(140, 255, 46, 0.04)" stroke="rgba(140, 255, 46, 0.2)" stroke-width="1" />
+    <text y="318" x="24" fill="#94a3b8" font-size="12">Test Files:</text>
+    <text y="318" x="120" fill="#8cff2e" font-weight="700">2 passed</text>
+    <text y="318" x="190" fill="#64748b">(2)</text>
+
+    <text y="342" x="24" fill="#94a3b8" font-size="12">Tests:</text>
+    <text y="342" x="120" fill="#8cff2e" font-weight="700">15 passed</text>
+    <text y="342" x="200" fill="#64748b">(15)</text>
+
+    <text y="366" x="24" fill="#94a3b8" font-size="12">Duration:</text>
+    <text y="366" x="120" fill="#f8fafc">1.48s</text>
+    <text y="366" x="220" fill="#8cff2e" font-weight="700">✓ ALL TESTS SUCCESSFUL (Zero Failures)</text>
+  </g>
+</svg>
