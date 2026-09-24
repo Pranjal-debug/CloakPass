@@ -118,7 +118,7 @@ Choose either Option A or Option B:
   1. Go to [vercel.com/new](https://vercel.com/new).
   2. Import your GitHub repository `Pranjal-debug/CloakPass`.
   3. Set Root Directory to `frontend` or build command to `npm run build:frontend` and output directory to `dist/frontend`.
-  4. Click **Deploy** and copy your `https://cloakpass.vercel.app` URL.
+  4. Click **Deploy** and your URL is live at `https://cloak-pass.vercel.app`.
 - **Option B (Netlify Drop - No login needed)**:
   1. Build the frontend: `npm run build:frontend`.
   2. Open [app.netlify.com/drop](https://app.netlify.com/drop) in your browser.

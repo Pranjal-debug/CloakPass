@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://pranjal-debug.github.io/CloakPass/"><img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-lime?style=for-the-badge&logo=github" alt="Live Demo GitHub Pages" /></a>
-  <a href="https://cloakpass.vercel.app/"><img src="https://img.shields.io/badge/Demo%20Mirror-Vercel-000000?style=for-the-badge&logo=vercel" alt="Demo Mirror Vercel" /></a>
+  <a href="https://cloak-pass.vercel.app/"><img src="https://img.shields.io/badge/Demo%20Mirror-Vercel-000000?style=for-the-badge&logo=vercel" alt="Demo Mirror Vercel" /></a>
   <a href="https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9"><img src="https://img.shields.io/badge/Preprod%20Explorer-02df1c...-8A2BE2?style=for-the-badge&logo=shield" alt="Preprod Explorer" /></a>
   <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions" alt="GitHub Actions CI/CD" />
   <img src="https://img.shields.io/badge/Language-Compact%200.26-cyan?style=for-the-badge" alt="Compact Language" />
@@ -20,7 +20,7 @@
 ## 🚀 Initial Product Idea & Live Links
 
 - **🌐 Live Production dApp**: [https://pranjal-debug.github.io/CloakPass/](https://pranjal-debug.github.io/CloakPass/)
-- **⚡ Alternative Mirror**: [https://cloakpass.vercel.app/](https://cloakpass.vercel.app/)
+- **⚡ Alternative Mirror**: [https://cloak-pass.vercel.app/](https://cloak-pass.vercel.app/)
 - **🔍 Midnight Preprod Explorer**: [https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9](https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9)
 - **📋 Live Preprod Contract Address**: `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`
 
