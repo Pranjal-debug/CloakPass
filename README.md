@@ -121,7 +121,7 @@ Block Height     : 154737
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/<your-username>/cloakpass.git
+git clone https://github.com/Pranjal-debug/CloakPass.git
 cd cloakpass
 npm install
 ```
