@@ -460,7 +460,7 @@ async function handleRedeemPass(e: Event) {
 }
 
 // --- Attach Event Listeners ---
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   if (walletBtn) walletBtn.addEventListener('click', handleWalletConnect);
   if (issueForm) issueForm.addEventListener('submit', handleIssuePass);
   if (redeemForm) redeemForm.addEventListener('submit', handleRedeemPass);
@@ -551,4 +551,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (laceConnector.isInstalled()) {
     console.log('[CloakPass] Lace extension detected!');
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
