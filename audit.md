@@ -78,7 +78,7 @@
 | **1. Meaningful Midnight Privacy Model** | ✅ **FULFILLED** | Production-hardened dual-state dApp with cryptographic nullifier derivation, Historic Merkle Tree validation, vault JSON export/import, and activity audit log. |
 | **2. Minimum 3 Tests Passing** | ✅ **FULFILLED** | **15/15 tests passing** in Vitest (`src/test/cloakpass.test.ts` + `src/test/integration.test.ts`) and **11/11 tests** in `scripts/test-runner.mjs`. |
 | **3. CI/CD Pipeline Running** | ✅ **FULFILLED** | `.github/workflows/ci.yml` validates ZKIR keys, runs `typecheck`, executes Vitest + core test runners, and verifies frontend build. |
-| **4. Approved Idea from Provided List** | ✅ **FULFILLED** | Selected: **`Confidential Credentials` / `Private Allowlist Access`** (`Identity/credentials`). Formally submitted in [SUBMISSION_THE_TURN.md](./SUBMISSION_THE_TURN.md). |
+| **4. Approved Idea from Provided List** | ✅ **FULFILLED** | Selected: **`Confidential Credentials` / `Private Allowlist Access`** (`Identity/credentials`). Formally submitted in [PROPOSAL.md](./PROPOSAL.md). |
 | **5. Minimum 10 Meaningful Commits** | ✅ **FULFILLED** | 11 Conventional Commits. |
 
 ### Submission Checklist Items
@@ -86,8 +86,8 @@
 - [x] **Public GitHub Repository with Complete README**: Fulfilled.
 - [x] **Screenshot: Test Output (3+ Tests Passing)**: Documented with 15/15 tests passing.
 - [x] **CI/CD Badge & Workflow File**: `.github/workflows/ci.yml` present; badge in `README.md`.
-- [x] **README "Privacy Model" Section (What Observer Can vs Cannot Learn)**: Detailed in `README.md` and `SUBMISSION_THE_TURN.md`.
-- [x] **Product Proposal Submitted for Approval**: [SUBMISSION_THE_TURN.md](./SUBMISSION_THE_TURN.md) complete.
+- [x] **README "Privacy Model" Section (What Observer Can vs Cannot Learn)**: Detailed in `README.md` and `PROPOSAL.md`.
+- [x] **Product Proposal Submitted for Approval**: [PROPOSAL.md](./PROPOSAL.md) (answering the four required questions) complete.
 - [x] **10+ Commits**: Fulfilled (11 commits).
 - [x] **Live Demo Link**: ✅ **FULFILLED** ([GitHub Pages Live](https://pranjal-debug.github.io/CloakPass/))
 - [x] **Demo Video (1 minute showing full functionality)**: ✅ **FULFILLED** ([Google Drive Stream](https://drive.google.com/file/d/1-uUXTTpYOv8E8icx3NEAb6y4pIa36iab/view?usp=sharing))

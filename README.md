@@ -35,7 +35,7 @@
 | **🌑 Level 1** | **New Moon (Setup & Contract)** | ✅ **PASS** | Compact compiler `v0.34.0`, `cloakpass.compact`, ZK circuits & keys, 8/8 tests, Preprod deployment |
 | **🌒 Level 2** | **Waxing Crescent (Frontend UI)** | ✅ **PASS** | Interactive Vite frontend, Lace DApp Connector v4, pass minting & ZK gate redemption |
 | **🌓 Level 3** | **First Quarter (Production dApp)** | ✅ **PASS** | GitHub Actions CI/CD, 15 Vitest & lifecycle tests, credential vault export/import, Activity log |
-| **🌓 The Turn** | **Idea Submission** | ✅ **PASS** | [SUBMISSION_THE_TURN.md](./SUBMISSION_THE_TURN.md): Formulated problem statement, architecture, threat model |
+| **🌓 The Turn** | **Idea Submission** | ✅ **PASS** | [PROPOSAL.md](./PROPOSAL.md): Official proposal answering the four required questions |
 | **🌔 Level 4** | **Waxing Gibbous (MVP Live)** | ⏳ **UPCOMING** | Production MVP on Preprod, public documentation, X product profile |
 | **🌕 Level 5** | **Full Moon (User Feedback)** | ⏳ **PENDING** | Feedback loop & 50 Preprod users |
 | **🌝 Level 6** | **Supermoon (Mainnet Launch)** | ⏳ **PENDING** | Mainnet deployment, brand assets & 20 active users |
