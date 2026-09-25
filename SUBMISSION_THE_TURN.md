@@ -7,7 +7,7 @@
 **Live Preprod Contract**: `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`  
 **Live Demo Application**: [https://cloak-pass.vercel.app/](https://cloak-pass.vercel.app/) (GitHub Pages: [https://pranjal-debug.github.io/CloakPass/](https://pranjal-debug.github.io/CloakPass/))  
 **GitHub Repository**: [https://github.com/Pranjal-debug/CloakPass](https://github.com/Pranjal-debug/CloakPass)  
-**Demo Walkthrough Video**: [docs/media/cloakpass-demo.mp4](./docs/media/cloakpass-demo.mp4) ([Direct Stream Link](https://github.com/Pranjal-debug/CloakPass/raw/master/docs/media/cloakpass-demo.mp4))
+**Demo Walkthrough Video**: [https://drive.google.com/file/d/1-uUXTTpYOv8E8icx3NEAb6y4pIa36iab/view?usp=sharing](https://drive.google.com/file/d/1-uUXTTpYOv8E8icx3NEAb6y4pIa36iab/view?usp=sharing)
 
 ---
 

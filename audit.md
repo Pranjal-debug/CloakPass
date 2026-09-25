@@ -62,16 +62,10 @@
 - [x] **Deployed Preprod Address (Verifiable on-chain)**: Fulfilled.
 - [x] **README Documenting Privacy Claim**: Documented in [README.md](./README.md) and interactive comparison grid in `frontend/index.html`.
 - [x] **8+ Commits**: Fulfilled (11 commits).
-- [ ] **Live Demo Link (Public URL)**: ⚠️ **ACTION NEEDED**  
-  - *Current Status*: Frontend is 100% built and tested locally (`http://localhost:5173/`, production bundle ready in `dist/frontend/`).  
-  - *Action Left*: Deploy to Vercel, Netlify Drop, or Cloudflare Pages (see Instructions below).
-- [ ] **Demo Video (Wallet Connect + Circuit Call)**: ⚠️ **ACTION NEEDED**  
-  - *Current Status*: Visual screenshots exist; need a short screen recording showing:
-    1. Clicking "Connect Lace Wallet".
-    2. Minting a pass.
-    3. Redeeming at the Zero-Knowledge Gate.
+- [x] **Live Demo Link (Public URL)**: ✅ **FULFILLED** ([GitHub Pages Live](https://pranjal-debug.github.io/CloakPass/))
+- [x] **Demo Video (Wallet Connect + Circuit Call)**: ✅ **FULFILLED** ([Google Drive Stream](https://drive.google.com/file/d/1-uUXTTpYOv8E8icx3NEAb6y4pIa36iab/view?usp=sharing))
 
-> **Level 2 Verdict**: 🟡 **CODE 100% DONE — Needs live hosting link and 30-60 sec demo video.**
+> **Level 2 Verdict**: 🟢 **100% COMPLETE — All requirements, live hosting, and demo video fulfilled.**
 
 ---
 
@@ -95,10 +89,10 @@
 - [x] **README "Privacy Model" Section (What Observer Can vs Cannot Learn)**: Detailed in `README.md` and `SUBMISSION_THE_TURN.md`.
 - [x] **Product Proposal Submitted for Approval**: [SUBMISSION_THE_TURN.md](./SUBMISSION_THE_TURN.md) complete.
 - [x] **10+ Commits**: Fulfilled (11 commits).
-- [ ] **Live Demo Link**: ⚠️ **ACTION NEEDED** (Same public link as Level 2).
-- [ ] **Demo Video (1 minute showing full functionality)**: ⚠️ **ACTION NEEDED** (Same video or comprehensive 1-min walkthrough).
+- [x] **Live Demo Link**: ✅ **FULFILLED** ([GitHub Pages Live](https://pranjal-debug.github.io/CloakPass/))
+- [x] **Demo Video (1 minute showing full functionality)**: ✅ **FULFILLED** ([Google Drive Stream](https://drive.google.com/file/d/1-uUXTTpYOv8E8icx3NEAb6y4pIa36iab/view?usp=sharing))
 
-> **Level 3 Verdict**: 🟡 **CODE & SPECS 100% DONE — Needs live hosting link and 1-minute demo video.**
+> **Level 3 Verdict**: 🟢 **100% COMPLETE — Code, specs, live hosting, and demo video fulfilled.**
 
 ---
 
