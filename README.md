@@ -147,6 +147,11 @@ Test Files: 2 passed (2) | Tests: 15 passed (15) | Duration: 1.48s
   <img src="docs/screenshots/test_output.svg" alt="CloakPass Vitest Test Suite Output" width="100%" />
 </p>
 
+### 4. Interactive Live Walkthrough & Video Demonstration
+A complete 60-second end-to-end screen recording demonstrating Lace wallet connection, Merkle leaf commitment issuance, zero-knowledge witness verification at the gate, and Preprod receipts:
+- **Direct Video File**: [docs/media/cloakpass-demo.mp4](docs/media/cloakpass-demo.mp4)
+- **GitHub Raw Video Stream**: [Watch on GitHub](https://github.com/Pranjal-debug/CloakPass/raw/master/docs/media/cloakpass-demo.mp4)
+
 ---
 
 ## 🛠️ Local Setup & Getting Started
