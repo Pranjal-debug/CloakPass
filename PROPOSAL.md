@@ -1,11 +1,11 @@
-# CloakPass — Level 3 Project Proposal ("The Turn")
+# CloakPass � Level 3 Project Proposal ("The Turn")
 
-**Phase**: Level 3 (First Quarter) — Idea Submission ("The Turn")  
+**Phase**: Level 3 (First Quarter) � Idea Submission ("The Turn")  
 **Project Name**: CloakPass  
 **Track / Category**: `Identity/credentials` (*Confidential Credentials & Private Allowlist Access*)  
-**Selected Problem Statement**: Privacy-Preserving Access Control & Sybil-Resistant Verification (Proof of Entitlement Without Identity Exposure)  
-**Live Preprod Contract**: [`02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`](https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9)  
-**Live Hosted Web App**: [https://pranjal-debug.github.io/CloakPass/](https://pranjal-debug.github.io/CloakPass/) (Mirror: [https://cloak-pass.vercel.app/](https://cloak-pass.vercel.app/))  
+**Selected Problem Statement**: Privacy-Preserving Compliance Credentials & Sybil-Resistant Allowlist Gating (Proof of Qualification Without Identity Exposure)  
+**Live Preprod Contract**: [`df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`](https://explorer.preprod.midnight.network/contract/df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9)  
+**Live Hosted Web App**: [https://cloak-pass.vercel.app/](https://cloak-pass.vercel.app/) (GitHub Pages: [https://pranjal-debug.github.io/CloakPass/](https://pranjal-debug.github.io/CloakPass/))  
 **GitHub Repository**: [https://github.com/Pranjal-debug/CloakPass](https://github.com/Pranjal-debug/CloakPass)  
 **Interactive Demo Video**: [Google Drive Demo Stream](https://drive.google.com/file/d/1-uUXTTpYOv8E8icx3NEAb6y4pIa36iab/view?usp=sharing)  
 
@@ -13,27 +13,32 @@
 
 ## Question 1: What problem does your dApp solve?
 
-### The Problem in Web3
-In contemporary Web3 ecosystems, access control, event ticketing, and gated access rely on public non-fungible tokens (NFTs) or account-based whitelists. While transparent ledgers guarantee verifiable ownership, they introduce severe privacy vulnerabilities:
+### The Core Problem in Web3 & Institutional DeFi
+Modern decentralized finance, tokenized asset protocols, and enterprise ecosystems face a fundamental paradox between **regulatory compliance** and **financial privacy**:
 
-1. **Surveillance & Doxxing**: Presenting a public wallet address to claim event admission, enter private physical spaces, or access confidential resources permanently connects the attendee's real-world physical location and off-chain identity with their complete on-chain financial transaction history and asset holdings.
-2. **Transferability & Ticket Scalping**: Simple cryptographic signatures or public tokens allow illicit ticket resale, credential pooling, and credential sharing across unverified parties.
-3. **Sybil Attacks in Gated Communities**: Without revealing personal identifiers, existing transparent blockchains struggle to prevent a single entity from claiming multiple allowances, airdrops, or private voting privileges.
+1. **The Compliance Dilemma (Doxxing vs. Non-Compliance)**: Regulatory frameworks increasingly require protocols (RWA tokenization, private investment syndicates, permissioned liquidity pools) to ensure participants are accredited, KYC-cleared, or non-sanctioned. However, enforcing this on transparent blockchains forces users to permanently link their government ID, physical address, and accredited net-worth status to their public wallet address � exposing their complete financial transaction history to public surveillance.
+2. **Credential Transferability & Illicit Pooling**: Traditional allowlists and NFT-based badges can be freely transferred, sold on secondary markets, or shared across unverified third parties, defeating the integrity of compliance gates.
+3. **Sybil Attacks & Multi-Redemption**: Traditional privacy tools fail to prevent a single qualified participant from reusing one credential across multiple unauthorized claims or voting allotments without deanonymizing the claimant.
 
 ### The CloakPass Solution
-**CloakPass** is a production-grade, zero-knowledge access pass and entitlement verification protocol natively constructed on the **Midnight Network**. 
+**CloakPass** is a decentralized, zero-knowledge **Confidential Credential & Sybil-Resistant Allowlist Protocol** natively constructed on the **Midnight Network**.
 
-CloakPass enables attendees and credential holders to prove valid entitlement (e.g., event admission, DAO voting membership, API gate access) **without revealing their identity, their wallet address, or which specific ticket in the registry they own**. By leveraging Midnight's Compact smart contract language, client-side zero-knowledge proofs (ZKPs), and cryptographic single-use nullifiers, CloakPass eliminates double-redemption while preserving absolute anonymity.
+CloakPass empowers institutions, DAOs, and credential issuers to grant cryptographic compliance allowlists where users can **prove valid qualification (e.g., accredited investor status, AML clearance, DAO council membership) without revealing their personal identity, their wallet address, or which specific credential in the registry belongs to them**.
+
+By combining Midnight's Compact smart contract language, client-side zero-knowledge proofs (ZKPs), and domain-separated single-use nullifiers, CloakPass provides:
+- **Zero Information Leakage**: Verifiers obtain mathematical certainty of compliance with zero disclosure of underlying private data.
+- **Strict Sybil-Resistance**: Cryptographic nullifiers ensure each credential can only be exercised once per epoch/round, preventing credential pooling and illicit sharing.
+- **Non-Custodial Data Sovereignty**: Private witnesses never leave the user's local browser memory or encrypted cold vault.
 
 ---
 
 ## Question 2: What is your public state vs. private witness state, and what is disclosed?
 
-CloakPass implements Midnight's dual-state execution model, creating an impenetrable boundary between client-side private witnesses and public ledger state:
+CloakPass strictly implements Midnight's dual-state execution model:
 
 ### 1. Public Ledger State (On-Chain)
 Maintained on the Midnight Preprod ledger and synchronized by indexers:
-- **`passCommitments` (`HistoricMerkleTree<10, Bytes<32>>`)**: An append-only cryptographic Merkle tree storing commitment hashes of all issued passes (capacity: $2^{10} = 1,024$ leaves). Maintains root history to allow client-side off-chain proof generation without race conditions.
+- **`passCommitments` (`HistoricMerkleTree<10, Bytes<32>>`)**: An append-only cryptographic Merkle tree storing commitment hashes of all issued credentials (capacity: $2^{10} = 1,024$ leaves). Maintains root history to allow client-side off-chain proof generation without race conditions.
 - **`usedNullifiers` (`Set<Bytes<32>>`)**: A persistent on-chain registry of consumed single-use nullifiers. If a nullifier already exists in this set, any redemption transaction aborts immediately, strictly preventing double-redemption.
 - **`totalIssued` (`Counter`)**: Public metric tracking total credentials minted.
 - **`totalRedeemed` (`Counter`)**: Public metric tracking total verified redemptions.
@@ -41,13 +46,13 @@ Maintained on the Midnight Preprod ledger and synchronized by indexers:
 
 ### 2. Private Witness State (Client-Side Off-Chain)
 Stored strictly in the holder's browser memory / cold vault, never transmitted over the network:
-- **`pass_secret` (`Bytes<32>`)**: High-entropy 256-bit random private key known only to the ticket holder.
+- **`pass_secret` (`Bytes<32>`)**: High-entropy 256-bit random private key known only to the credential holder.
 - **`pass_salt` (`Bytes<32>`)**: High-entropy 256-bit cryptographic blinding salt preventing rainbow table precomputations.
 - **`pass_path` (`MerklePath<10>`)**: Sibling node hashes proving the position of the leaf in `passCommitments`.
 
 ### 3. Deliberate Information Disclosure via `disclose()`
-Midnight's `disclose()` primitive is applied strictly to prevent information leakage:
-- **Disclosed**: `disclose(nullifier, true)` — The single-use nullifier `SHA-256("cloakpass:nullify:" || secret)` is disclosed to the ledger upon verification. This is the **only** piece of data revealed, enabling the contract to insert it into `usedNullifiers` and enforce single-use redemption.
+Midnight's `disclose()` primitive is applied with surgical precision:
+- **Disclosed**: `disclose(nullifier, true)` � The single-use nullifier `SHA-256("cloakpass:nullify:" || secret)` is disclosed to the ledger upon verification. This is the **only** piece of data revealed, enabling the contract to insert it into `usedNullifiers` and enforce single-use redemption.
 - **Concealed (Zero Disclosure)**: The witness secret, blinding salt, holder wallet address, and Merkle leaf index are **never disclosed**. An observer on the Preprod explorer sees only that a valid Merkle proof occurred and that an unspent nullifier was inserted.
 
 ```
@@ -55,25 +60,25 @@ Midnight's `disclose()` primitive is applied strictly to prevent information lea
 |                             CLIENT PROVER (Off-Chain)                         |
 |                                                                               |
 |  [ Private Witnesses: pass_secret, pass_salt ]                                |
-|         │                                                                     |
-|         ├───> SHA-256("cloakpass:commit:" || secret || salt) = Leaf Hash      |
-|         │                                                                     |
-|         ├───> Query Merkle Membership Path in Ledger passCommitments Tree     |
-|         │                                                                     |
-|         └───> SHA-256("cloakpass:nullify:" || secret) = Single-Use Nullifier  |
+|         �                                                                     |
+|         +---> SHA-256("cloakpass:commit:" || secret || salt) = Leaf Hash      |
+|         �                                                                     |
+|         +---> Query Merkle Membership Path in Ledger passCommitments Tree     |
+|         �                                                                     |
+|         +---> SHA-256("cloakpass:nullify:" || secret) = Single-Use Nullifier  |
 |                                                                               |
 |  [ ZK Prover Engine: Generates ZK Proof Proving Leaf Exists in Merkle Root]   |
-+───────────────────────────────────────┬───────────────────────────────────────+
-                                        │
-                                        │ disclose(nullifier, true)
-                                        ▼
++-------------------------------------------------------------------------------+
+                                        �
+                                        � disclose(nullifier, true)
+                                        ?
 +-------------------------------------------------------------------------------+
 |                         MIDNIGHT LEDGER (On-Chain / Preprod)                  |
 |                                                                               |
-|  • passCommitments : HistoricMerkleTree<10, Bytes<32>>                        |
-|  • usedNullifiers  : Set<Bytes<32>> (Single-Use Spend Registry)              |
-|  • totalIssued     : Counter                                                  |
-|  • totalRedeemed   : Counter                                                  |
+|  � passCommitments : HistoricMerkleTree<10, Bytes<32>>                        |
+|  � usedNullifiers  : Set<Bytes<32>> (Single-Use Spend Registry)              |
+|  � totalIssued     : Counter                                                  |
+|  � totalRedeemed   : Counter                                                  |
 |                                                                               |
 |  Ledger Constraints:                                                          |
 |  1. Merkle Membership verified against historical tree roots                  |
@@ -88,20 +93,20 @@ Midnight's `disclose()` primitive is applied strictly to prevent information lea
 
 ### End-to-End User Journey
 
-1. **Step 1: Organizer Issues Pass (`issue_pass`)**:
-   - The attendee or organizer generates a local 32-byte secret witness $s$ and a 32-byte blinding salt $r$ in client browser memory.
-   - The client derives the domain-separated commitment:
-     $$\text{Commitment} = \text{SHA-256}(\text{"cloakpass:commit:"} \parallel s \parallel r)$$
+1. **Step 1: Credential Issuance (`issue_pass`)**:
+   - The credential authority (compliance officer, DAO admin, or issuer) generates or receives the user's blinded commitment.
+   - Off-chain, the client derives the domain-separated commitment:
+     $$\text{Commitment} = \text{SHA-256}(\text{"cloakpass:commit:"} \parallel \text{secret} \parallel \text{salt})$$
    - The transaction submits only the Commitment hash to the Midnight contract, which appends it into `passCommitments` and increments `totalIssued`.
-   - The user exports their confidential pass to their local vault (`.json`) or saves their secret keys.
+   - The user exports their confidential credential to their local vault (`.json`) or saves their secret keys.
 
-2. **Step 2: Attendee Arrives at Zero-Knowledge Gate (`redeem_pass`)**:
-   - The attendee connects their Lace Wallet (or uses one-click credential ingestion).
-   - The client-side Midnight proving engine loads the private witnesses ($s, r$) and fetches the latest Merkle path for the commitment from the Preprod indexer.
+2. **Step 2: Proving Qualification at Zero-Knowledge Gate (`redeem_pass`)**:
+   - The user connects their Lace Wallet (or uses one-click credential ingestion).
+   - The client-side Midnight proving engine loads the private witnesses ($\text{secret}, \text{salt}$) and fetches the latest Merkle path for the commitment from the Preprod indexer.
    - The prover synthesizes a zero-knowledge proof establishing that:
      $$\exists \, \text{path} \quad \text{s.t.} \quad \text{MerkleVerify}(\text{root}, \text{Commitment}, \text{path}) = 1$$
    - The prover calculates the single-use nullifier:
-     $$\text{Nullifier} = \text{SHA-256}(\text{"cloakpass:nullify:"} \parallel s)$$
+     $$\text{Nullifier} = \text{SHA-256}(\text{"cloakpass:nullify:"} \parallel \text{secret})$$
    - Due to distinct domain separation prefixes (`"cloakpass:commit:"` vs. `"cloakpass:nullify:"`), the nullifier cannot be correlated back to the commitment leaf.
 
 3. **Step 3: On-Chain Verification & Admission**:
@@ -138,38 +143,38 @@ gantt
 - **Level 1 (New Moon) [COMPLETED]**:
   - Compact toolchain installed (`v0.34.0`), smart contract `cloakpass.compact` written with public ledger state and private witnesses.
   - ZK circuits compiled to ZKIR (`issue_pass.zkir`, `redeem_pass.zkir`) and Groth16 proving keys generated (`issue_pass.prover` [2.8 MB], `redeem_pass.prover` [5.2 MB]).
-  - Deployed to Midnight Preprod testnet at address `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`.
+  - Deployed to Midnight Preprod testnet at canonical 64-hex address `df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`.
 
 - **Level 2 (Waxing Crescent) [COMPLETED]**:
   - High-contrast Obsidian frontend engineered with Vite 7 and Vanilla CSS.
   - Lace Wallet integration with CAIP-372 multi-wallet discovery and Preprod simulation fallback.
   - Interactive issuance, Merkle leaf commitment, and zero-knowledge gate redemption.
+  - Direct integration with Midnight.js SDK `Contract.circuits` and `proofProvider.proveTx`.
 
 - **Level 3 (First Quarter & The Turn) [COMPLETED / CURRENT]**:
   - 15/15 automated tests passing across integration, circuit metadata, and cryptographic lifecycle suites.
   - Automated CI/CD GitHub Actions pipeline ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
-  - Automated GitHub Pages deployment ([`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)).
   - Cold credential vault export/import (`.json`) for data sovereignty.
   - Root `PROPOSAL.md` answering all four evaluation questions.
 
 - **Level 4 (Waxing Gibbous) [UPCOMING]**:
   - Comprehensive public user onboarding flow with integrated Preprod tDUST faucet gateway.
-  - Mobile-optimized QR-code gate scanner for physical in-person event check-in.
+  - Mobile-optimized QR-code gate scanner for physical in-person event check-in and enterprise access.
   - Public product profile and social showcase.
 
 - **Level 5 (Full Moon) [UPCOMING]**:
   - Onboard 50+ active testnet users to generate real-world proving benchmarks.
-  - Implement batch pass issuance circuit to allow organizers to issue hundreds of tickets in a single ledger transaction.
+  - Implement batch credential issuance circuit to allow institutions to issue hundreds of compliance allowances in a single ledger transaction.
   - WASM prover optimizations for sub-second mobile browser proof generation.
 
 - **Level 6 (Supermoon) [UPCOMING]**:
   - Production deployment to Midnight Mainnet.
   - Formal verification of Compact circuit constraints and audit reports.
-  - Integrations with decentralized ticketing platforms and DAO governance tooling.
+  - Integrations with decentralized compliance providers, RWA protocols, and DAO governance tooling.
 
 ---
 
-## 🔒 Security & Threat Model
+## ?? Security & Threat Model
 
 | Threat Vector | Mitigation Strategy in CloakPass |
 | :--- | :--- |

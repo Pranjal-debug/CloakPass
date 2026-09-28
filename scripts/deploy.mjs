@@ -178,7 +178,7 @@ console.log(`      Organizer PK   : 0x${organizerPk.toString('hex')}`);
 console.log('\n[4/5] Constructing Midnight Contract Deployment Intent & Address...');
 const contractDeploy = new ContractDeploy(contractState);
 const rawContractAddress = contractDeploy.address;
-const contractAddress = `02${rawContractAddress}`;
+const contractAddress = rawContractAddress;
 
 // Construct the deployment transaction intent using Midnight protocol
 const intent = Intent.new(ttlOneHour()).addDeploy(contractDeploy);

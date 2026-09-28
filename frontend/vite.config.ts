@@ -19,6 +19,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      '@midnight-ntwrk/midnight-js-network-provider': path.resolve(__dirname, '../packages/midnight-js-network-provider/index.js'),
       'fs/promises': path.resolve(__dirname, 'src/shims/empty.ts'),
       'node:fs/promises': path.resolve(__dirname, 'src/shims/empty.ts'),
     },

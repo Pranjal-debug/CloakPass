@@ -1,7 +1,7 @@
 {
   "contractName": "CloakPass",
   "network": "preprod",
-  "contractAddress": "02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9",
+  "contractAddress": "df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9",
   "txHash": "0x6a941d4234b137099536310b758d8baaff247aaa42912145a890836eb448884d",
   "blockHeight": 2677990,
   "blockHash": "0x06f32311d330f039e619c5b8aec8c10e489a17e8763553817c62a076276d953d",
@@ -11,5 +11,5 @@
     "issue_pass",
     "redeem_pass"
   ],
-  "explorerUrl": "https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9"
+  "explorerUrl": "https://explorer.preprod.midnight.network/contract/df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9"
 }

@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://pranjal-debug.github.io/CloakPass/"><img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-lime?style=for-the-badge&logo=github" alt="Live Demo GitHub Pages" /></a>
   <a href="https://cloak-pass.vercel.app/"><img src="https://img.shields.io/badge/Demo%20Mirror-Vercel-000000?style=for-the-badge&logo=vercel" alt="Demo Mirror Vercel" /></a>
-  <a href="https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9"><img src="https://img.shields.io/badge/Preprod%20Explorer-02df1c...-8A2BE2?style=for-the-badge&logo=shield" alt="Preprod Explorer" /></a>
+  <a href="https://explorer.preprod.midnight.network/contract/df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9"><img src="https://img.shields.io/badge/Preprod%20Explorer-df1c9f...-8A2BE2?style=for-the-badge&logo=shield" alt="Preprod Explorer" /></a>
   <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?style=for-the-badge&logo=githubactions" alt="GitHub Actions CI/CD" />
   <img src="https://img.shields.io/badge/Language-Compact%200.26-cyan?style=for-the-badge" alt="Compact Language" />
   <img src="https://img.shields.io/badge/Compiler-v0.34.0-blue?style=for-the-badge" alt="Compiler v0.34.0" />
@@ -21,8 +21,8 @@
 
 - **🌐 Live Production dApp**: [https://pranjal-debug.github.io/CloakPass/](https://pranjal-debug.github.io/CloakPass/)
 - **⚡ Alternative Mirror**: [https://cloak-pass.vercel.app/](https://cloak-pass.vercel.app/)
-- **🔍 Midnight Preprod Explorer**: [https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9](https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9)
-- **📋 Live Preprod Contract Address**: `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`
+- **🔍 Midnight Preprod Explorer**: [https://explorer.preprod.midnight.network/contract/df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9](https://explorer.preprod.midnight.network/contract/df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9)
+- **📋 Live Preprod Contract Address**: `df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`
 
 **CloakPass** is a privacy-first decentralized access control and zero-knowledge verification dApp engineered on the Midnight Network. It empowers users to prove valid entitlement, event admission, DAO voting eligibility, or credential criteria without ever disclosing their wallet identity, personal data, or private ticket secrets to the public ledger or any verifying party. By uniting off-chain cryptographic witnesses, domain-separated Pedersen/SHA-256 commitments in a historic Merkle tree, and unlinkable on-chain nullifiers, CloakPass provides mathematical protection against double-spending and unauthorized tracking while maintaining verifiable public accountability.
 
@@ -124,11 +124,11 @@ Compiling 2 circuits:
 ### 2. Successful Deployment to Preprod Testnet (Address Shown)
 ```
 $ npm run deploy:preprod
-Contract Address : 02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9
+Contract Address : df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9
 Network          : PREPROD
 Transaction Hash : 0x6a941d4234b137099536310b758d8baaff247aaa42912145a890836eb448884d
 Block Height     : 2677990
-Explorer Link    : https://explorer.preprod.midnight.network/contract/02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9
+Explorer Link    : https://explorer.preprod.midnight.network/contract/df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9
 ```
 
 <p align="center">

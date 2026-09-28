@@ -4,7 +4,7 @@
 **Project**: CloakPass  
 **Network**: Midnight Preprod Testnet  
 **Track**: Privacy-Preserving Applications on Midnight (`Identity/credentials`)  
-**Live Preprod Contract**: `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`  
+**Live Preprod Contract**: `df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9`  
 **GitHub Repository**: [https://github.com/Pranjal-debug/CloakPass](https://github.com/Pranjal-debug/CloakPass)
 
 ---
@@ -50,7 +50,7 @@ CloakPass has successfully progressed through all major milestones of the Midnig
   - `contract/managed/cloakpass/zkir/redeem_pass.zkir`
   - `contract/managed/cloakpass/keys/issue_pass.prover` (2.8 MB)
   - `contract/managed/cloakpass/keys/redeem_pass.prover` (5.2 MB)
-- [x] **Preprod Testnet Deployment**: Deployed contract `02df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9` at block height 2,677,990.
+- [x] **Preprod Testnet Deployment**: Deployed contract `df1c9fa9e67e2dfd8a67b7e74ade0e615972a8f10e166e05648d6397df5f4cc9` at block height 2,677,990.
 - [x] **README Foundations**: Documented product concept, public vs. private state distinction, and setup instructions.
 - [x] **Visual Evidence**: Created compile output SVG (`docs/screenshots/compile_output.svg`) and deployment SVG (`docs/screenshots/deployment_output.svg`).
 - [x] **Git History Target (5+ commits)**: 11 Conventional Commits recorded.
